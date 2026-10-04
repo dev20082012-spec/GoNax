@@ -1,0 +1,32 @@
+# GoNax Model Specification: European Oak Calibrated Allometric Estimator (Zianis-Oak-2005)
+Model Identifier: zianis-oak-2005-standard
+Species: Quercus robur (Pedunculate Oak / European Oak, Family: Fagaceae)
+Category: Scientific Trained Allometric Model
+Status: Active Production Model
+
+## 1. Model Overview and Mathematical Formulation
+The European Oak Calibrated Allometric Estimator computes total aboveground dry biomass (AGB, in kg) using the empirical power equation:
+AGB (kg) = 0.0567 * (DBH ^ 2.012) * (H ^ 0.873)
+where:
+- DBH is stem diameter at breast height in centimeters (1.30 m height).
+- H is total tree height in meters.
+The power formulation captures the non-linear volumetric expansion of dense, ring-porous oak xylem and large spreading branch scaffolding in mature trees.
+
+## 2. Carbon and CO2 Conversion Parameters
+- Carbon Fraction: 0.482 (48.2% elemental carbon by dry weight), derived from Thomas & Martin (2012) for temperate Fagaceae.
+  Carbon (kg) = AGB (kg) * 0.482
+- CO2 Equivalent Factor: Stoichiometric factor 44.01 / 12.011 ≈ 3.6667 (IPCC 2019).
+  CO2e (kg) = Carbon (kg) * 3.6667
+
+## 3. Calibration Domain and Boundary Limits
+- DBH Calibration Range: 10.0 cm to 140.0 cm
+- Height Calibration Range: 5.0 m to 38.0 m
+- Sample Size: N = 284 destructively harvested trees
+- Geographic Scope: Western and Central Europe (France, Germany, UK, Poland)
+Operational Rules:
+- When DBH > 140.0 cm or H > 38.0 m: Flagged with EXTRAPOLATION_WARNING. Large ancient oaks exhibit hollow heartwood, broken crowns, or massive lower boughs that depart from power scaling.
+- Residual Standard Error (RSE): ±11.4%.
+
+## 4. Basic Wood Density Parameters
+Mean basic wood density: 0.67 g/cm³ (intraspecific SD: ±0.05 g/cm³).
+Field observations can supply a measured wood density override. When overridden, biomass is adjusted proportionally to the ratio of observed density to species baseline.

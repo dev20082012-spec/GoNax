@@ -1,0 +1,36 @@
+{
+  "model_id": "allometric-pinus_sylvestris-trained-v1",
+  "species_id": "pinus_sylvestris",
+  "model_type": "allometric_formula",
+  "model_category": "scientific_trained_model",
+  "formula_expression": "AGB = 0.0416 * (DBH ^ 1.943) * (H ^ 0.931)",
+  "parameters": {
+    "a": 0.0416,
+    "b": 1.943,
+    "c": 0.931,
+    "correction_factor": 1.003,
+    "see_log": 0.072,
+    "dbh_min_cm": 9,
+    "dbh_max_cm": 87.9,
+    "height_min_m": 6.7,
+    "height_max_m": 32
+  },
+  "metrics": {
+    "sample_count": 60,
+    "r2": 0.99,
+    "rmse_kg": 170.24,
+    "mae_kg": 99.43,
+    "rse_percentage": 10,
+    "mean_observed_kg": 1702.72,
+    "mean_predicted_kg": 1742.26,
+    "calibration_domain": {
+      "dbh_min_cm": 9.8,
+      "dbh_max_cm": 83.3,
+      "height_min_m": 9.4,
+      "height_max_m": 32,
+      "age_min_years": 11,
+      "age_max_years": 132
+    }
+  },
+  "training_date": "2026-10-02T13:06:07.335Z"
+}

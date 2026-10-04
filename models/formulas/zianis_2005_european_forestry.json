@@ -1,0 +1,15 @@
+{
+  "name": "Zianis et al. 2005 European Forestry Standard",
+  "category": "Allometric Formula",
+  "paper": "Biomass and stem volume equations for tree species in Europe",
+  "doi": "10.1093/forestry/cpi052",
+  "equationForm": "M = a * D^b * H^c",
+  "inputUnits": {
+    "D": "cm (DBH at 1.3m)",
+    "H": "m (total height)"
+  },
+  "outputUnits": "kg dry above-ground biomass (AGB)",
+  "applicableRegions": ["Temperate Europe", "Boreal Europe"],
+  "carbonMethodology": "M_carbon = AGB * CF_species",
+  "status": "active_formula_engine"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Jenkins et al. 2003 North American Forest Synthesis",
+  "category": "Allometric Formula",
+  "paper": "National-scale biomass estimators for United States tree species",
+  "doi": "10.1046/j.1469-8137.2003.00764.x",
+  "equationForm": "M = Exp(b0 + b1 * ln(D))",
+  "inputUnits": {
+    "D": "cm (DBH)"
+  },
+  "outputUnits": "kg dry above-ground biomass",
+  "applicableRegions": ["North America", "Temperate Conifers"],
+  "status": "reference_allometry"
+}

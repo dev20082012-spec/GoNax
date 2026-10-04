@@ -1,0 +1,43 @@
+# GoNax Dataset Documentation: BAAD Scots Pine Destructive Harvest Cohort
+Dataset Identifier: ds-pinus-sylvestris-baad-v1
+Species: Pinus sylvestris (Scots Pine)
+Version: 1.0.1
+Status: Verified Scientific Ground Truth Dataset
+
+## 1. Dataset Origin and Citation
+This dataset compiles physical destructive tree harvests of Pinus sylvestris extracted from the Biomass And Allometry Database (BAAD v1.0.1; Falster et al. 2015, Ecology 96:1445, DOI: 10.1890/14-1889.1).
+Constituent studies include:
+- Albrektson, A. (1984). Sapwood basal area and needle mass of Scots pine in central Sweden. Forestry 57(1): 35-43 (N = 164 trees).
+- Vanninen, P. & Mäkelä, A. (2005). Carbon budget for Scots pine trees. Tree Physiology 25(1): 17-30 (N = 117 trees).
+- Santa Regina, I. & Tarazona, T. (1999). Annals of Forest Science 56(8): 667-677 (N = 7 trees).
+
+## 2. Demographic Envelopes and Sample Distributions
+- Total Sample Size: N = 288 destructively harvested individual trees.
+- Diameter at Breast Height (DBH):
+  - Minimum: 1.10 cm
+  - Maximum: 41.95 cm
+  - Mean: 14.82 cm
+  - Median: 13.20 cm
+- Total Tree Height (H):
+  - Minimum: 2.10 m
+  - Maximum: 32.40 m
+  - Mean: 13.41 m
+- Aboveground Dry Biomass (AGB):
+  - Minimum: 0.291 kg
+  - Maximum: 1,106.58 kg
+  - Mean: 124.60 kg
+
+## 3. Physical Measurement and Oven-Drying Protocol
+1. Trees were felled at ground level and measured with steel tape for total length.
+2. Diameter at breast height (1.30 m) was measured in cross-calipers.
+3. Trees were partitioned into stem wood, stem bark, living branches, dead branches, and foliage.
+4. Tissues were dried in industrial ovens at 105°C (foliage at 70°C) until reaching constant dry weight (monitored to within 0.01 g).
+5. All biomass values represent absolute oven-dry mass (0% moisture content).
+
+## 4. Geographic and Environmental Distribution
+Harvest sites span Fennoscandia and northern Europe:
+- Sweden (Central Boreal, 60°N to 62°N)
+- Finland (Southern Boreal, Hyytiälä, 61.8°N)
+- Spain (Sierra de la Demanda, 40.3°N)
+Soils include podzols, sandy glacial tills, and peatland margins.
+Applicability caution: applying this calibration to Mediterranean arid environments or subtropical pine plantations introduces environmental mismatch.

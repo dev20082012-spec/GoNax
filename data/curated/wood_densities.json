@@ -1,0 +1,32 @@
+{
+  "Quercus robur": {
+    "mean_g_cm3": 0.67,
+    "sd": 0.05,
+    "sample_count": 142,
+    "source_doi": "10.1093/forestry/cpi052"
+  },
+  "Pinus sylvestris": {
+    "mean_g_cm3": 0.51,
+    "sd": 0.04,
+    "sample_count": 210,
+    "source_doi": "10.1093/forestry/cpi052"
+  },
+  "Fagus sylvatica": {
+    "mean_g_cm3": 0.68,
+    "sd": 0.04,
+    "sample_count": 185,
+    "source_doi": "10.1093/forestry/cpi052"
+  },
+  "Acer pseudoplatanus": {
+    "mean_g_cm3": 0.61,
+    "sd": 0.04,
+    "sample_count": 98,
+    "source_doi": "10.1093/forestry/cpi052"
+  },
+  "Pseudotsuga menziesii": {
+    "mean_g_cm3": 0.49,
+    "sd": 0.05,
+    "sample_count": 160,
+    "source_doi": "10.1046/j.1469-8137.2003.00764.x"
+  }
+}

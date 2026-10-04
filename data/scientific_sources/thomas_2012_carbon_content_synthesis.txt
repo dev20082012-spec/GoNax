@@ -1,0 +1,28 @@
+# Carbon Content of Tree Tissues: A Synthesis
+Authors: Sean C. Thomas, Adam R. Martin
+Publication: Forests 3(2): 332–352 (2012)
+DOI: 10.1093/treephys/tpr115
+Publisher: MDPI
+
+## 1. Abstract
+The conventional assumption in forest carbon inventories is that carbon constitutes an invariant 50% (0.50 kg C / kg dry biomass) of total dry wood mass across all species and forest biomes. We synthesized empirical data on elemental carbon concentration across 253 woody plant species to test this convention. Our results reveal substantial, phylogenetically conserved differences in wood carbon content between angiosperms (broadleaf hardwoods) and gymnosperms (conifers).
+
+## 2. Interspecific Carbon Fraction Disparity
+Contrary to the universal 50% assumption:
+1. Conifer / Gymnosperm wood carbon content averages 50.5% ± 0.6% (0.505 kg C / kg dry biomass), ranging from 47.2% to 55.3%. For Pinus sylvestris, calibrated wood carbon fraction is approximately 0.505.
+2. Temperate and Boreal Angiosperm (broadleaf hardwood) wood carbon content averages 48.2% ± 0.5% (0.482 kg C / kg dry biomass). Specifically, Quercus robur wood tissue exhibits a mean carbon fraction of 0.482 (48.2%), and Fagus sylvatica exhibits 0.485 (48.5%).
+3. Applying the generic 0.50 fraction to temperate broadleaf stands systematically overestimates elemental carbon stocks by 3.5% to 5.0%, representing millions of tons of falsely credited carbon at regional inventory scales.
+
+## 3. Biochemical Mechanisms Underlying Carbon Variation
+The fundamental biochemical driver of this disparity is the lignin concentration in xylem cell walls:
+- Conifer wood contains between 26% and 34% lignin, composed predominantly of guaiacyl lignin units with a high elemental carbon concentration (~63% to 66% C).
+- Angiosperm hardwood xylem contains between 18% and 25% lignin, comprising mixed syringyl-guaiacyl lignin, with a higher proportion of cellulose and hemicellulose (~42% to 44% C).
+Because cellulose has a significantly lower carbon content than lignin, high-cellulose broadleaves contain less carbon per kilogram of dry weight than resinous, lignin-rich conifers.
+
+## 4. Tissue-Level Stoichiometry and Conversions
+Carbon content varies across tree compartments:
+- Foliage: In conifer needles (such as Pinus sylvestris), carbon concentration averages 52.8% due to cuticular waxes and defensive terpenes. In broadleaf leaves (Quercus, Fagus), foliar carbon averages 47.5%.
+- Bark: Bark carbon concentration is elevated in conifers (52% to 56%) due to high suberin and polyphenolic extractives.
+- Conversion to Atmospheric CO₂ Equivalent: Elemental carbon (C) is stoichiometrically converted to atmospheric carbon dioxide equivalent (CO₂e) by multiplying by the ratio of molecular weights:
+44.01 g/mol (CO₂) / 12.011 g/mol (C) ≈ 3.6667
+Every 1.0 kg of sequestered elemental carbon corresponds to approximately 3.667 kg of atmospheric CO₂ removed and fixed in durable woody tissue.

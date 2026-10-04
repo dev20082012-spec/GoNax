@@ -1,0 +1,83 @@
+{
+  "dataset_id": "ds-pinus-sylvestris-baad-v1",
+  "name": "Biomass And Allometry Database (BAAD) - Pinus sylvestris Cohort",
+  "species_id": "pinus_sylvestris",
+  "scientific_name": "Pinus sylvestris",
+  "common_name": "Scots Pine",
+  "family": "Pinaceae",
+  "version": "1.0.1",
+  "source": "Biomass And Allometry Database for woody plants (BAAD)",
+  "publication_reference": {
+    "doi": "10.1890/14-1889.1",
+    "citation": "Falster, D.S., et al. (2015). BAAD: a Biomass And Allometry Database for woody plants. Ecology, 96(5): 1445.",
+    "institution": "Macquarie University & Collaborative International Ecological Coalition"
+  },
+  "constituent_publications": [
+    {
+      "citation": "Albrektson, A. (1984). Sapwood basal area and needle mass of Scots pine in central Sweden. Forestry, 57(1): 35-43.",
+      "doi": "10.1093/forestry/57.1.35",
+      "sample_count": 164
+    },
+    {
+      "citation": "Vanninen, P. & Makela, A. (2005). Carbon budget for Scots pine trees. Tree Physiology, 25(1): 17-30.",
+      "doi": "10.1093/treephys/25.1.17",
+      "sample_count": 117
+    },
+    {
+      "citation": "Santa Regina, I. & Tarazona, T. (1999). Annals of Forest Science, 56(8): 667-677.",
+      "doi": "10.1051/forest:19990804",
+      "sample_count": 7
+    }
+  ],
+  "geographic_scope": {
+    "description": "Fennoscandian and European Scots Pine Stands",
+    "regions": [
+      "Sweden (Central)",
+      "Finland (Southern)",
+      "Spain (Sierra de la Demanda)"
+    ],
+    "latitude_bounds": [
+      40.3,
+      61.8
+    ],
+    "longitude_bounds": [
+      -4.5,
+      24.2
+    ]
+  },
+  "sample_count": 288,
+  "collection_methodology": "Destructive tree harvesting: whole-tree felling, stem dissection, and oven-drying at 105 deg C to constant dry weight.",
+  "measurement_definitions": {
+    "dbh_cm": {
+      "name": "Diameter at Breast Height",
+      "definition": "Stem diameter measured at 1.30 m height above ground level.",
+      "unit": "cm",
+      "calibration_range": [
+        1.1,
+        41.95
+      ]
+    },
+    "height_m": {
+      "name": "Total Tree Height",
+      "definition": "Vertical distance from base of trunk to apical terminal shoot.",
+      "unit": "m",
+      "calibration_range": [
+        2.1,
+        32.4
+      ]
+    },
+    "above_ground_biomass_kg": {
+      "name": "Above-Ground Dry Biomass",
+      "definition": "Total oven-dry mass of stem, branches, and foliage (excluding root system).",
+      "unit": "kg",
+      "calibration_range": [
+        0.291,
+        1106.58
+      ]
+    }
+  },
+  "target_variables": [
+    "above_ground_biomass_kg"
+  ],
+  "status": "verified_scientific_dataset"
+}

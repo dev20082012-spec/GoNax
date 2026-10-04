@@ -1,0 +1,140 @@
+{
+  "model_id": "trained-pinus-sylvestris-baad-v1",
+  "species_id": "pinus_sylvestris",
+  "species_scientific_name": "Pinus sylvestris",
+  "species_common_name": "Scots Pine",
+  "name": "Scots Pine Empirical Multi-Feature Regressor (BAAD)",
+  "model_type": "ml_gradient_boost",
+  "model_category": "scientific_trained_model",
+  "model_version": "1.0.0",
+  "training_dataset_id": "ds-pinus-sylvestris-baad-v1",
+  "training_dataset_version": "1.0.1",
+  "algorithm": "Ridge Linear Regressor (L2 regularized)",
+  "feature_list": [
+    "dbh_cm",
+    "height_m",
+    "cylindrical_volume_proxy_m3"
+  ],
+  "target_variable": "above_ground_biomass_kg",
+  "units": {
+    "inputs": {
+      "dbh_cm": "cm",
+      "height_m": "m",
+      "cylindrical_volume_proxy_m3": "m3"
+    },
+    "output": "kg"
+  },
+  "calibration_domain": {
+    "dbh_min_cm": 1.1,
+    "dbh_max_cm": 41.95,
+    "height_min_m": 2.1,
+    "height_max_m": 32.4,
+    "biomass_min_kg": 0.291,
+    "biomass_max_kg": 1106.58
+  },
+  "parameters": {
+    "coefficients": {
+      "dbh_cm": 1.8572139918933612,
+      "height_m": 0.00860328994500981,
+      "cylindrical_volume_proxy_m3": 155.45911618015245
+    },
+    "intercept": -14.482795816440188
+  },
+  "evaluation_metrics": {
+    "r2": 0.9675,
+    "rmse_kg": 31.7806,
+    "mae_kg": 11.5881,
+    "rse_percentage": 38.76,
+    "sample_count": 288,
+    "train_samples": 200,
+    "val_samples": 44,
+    "test_samples": 44
+  },
+  "all_evaluated_models": {
+    "allometric_power_law": {
+      "val_mae": 11.9212,
+      "val_rmse": 28.1918,
+      "val_r2": 0.9624,
+      "test_mae": 16.5513,
+      "test_rmse": 59.924,
+      "test_r2": 0.8844,
+      "rse_percentage": 72.25
+    },
+    "multi_feature_ridge": {
+      "val_mae": 10.3288,
+      "val_rmse": 17.4076,
+      "val_r2": 0.9857,
+      "test_mae": 11.5881,
+      "test_rmse": 31.7806,
+      "test_r2": 0.9675,
+      "rse_percentage": 38.76
+    },
+    "random_forest": {
+      "val_mae": 11.5214,
+      "val_rmse": 23.548,
+      "val_r2": 0.9738,
+      "test_mae": 12.8956,
+      "test_rmse": 49.2754,
+      "test_r2": 0.9219,
+      "rse_percentage": 59.86
+    },
+    "gradient_boosting": {
+      "val_mae": 11.3935,
+      "val_rmse": 23.5329,
+      "val_r2": 0.9738,
+      "test_mae": 12.4218,
+      "test_rmse": 38.1174,
+      "test_r2": 0.9532,
+      "rse_percentage": 46.45
+    }
+  },
+  "applicable_geographic_scope": {
+    "description": "Fennoscandian and European Scots Pine Stands (Sweden, Finland, Spain)",
+    "regions": [
+      "Sweden (Central)",
+      "Finland (Southern)",
+      "Spain (Sierra de la Demanda)"
+    ],
+    "latitude_range": [
+      40.3,
+      61.8
+    ],
+    "longitude_range": [
+      -4.5,
+      24.2
+    ]
+  },
+  "provenance": {
+    "primary_database": "Biomass And Allometry Database (BAAD v1.0.1)",
+    "primary_publication": "Falster, D.S., et al. (2015). BAAD: a Biomass And Allometry Database for woody plants. Ecology, 96(5): 1445. DOI: 10.1890/14-1889.1",
+    "primary_doi": "10.1890/14-1889.1",
+    "constituent_studies": [
+      {
+        "study": "Albrektson1984",
+        "citation": "Albrektson, A. (1984). Sapwood basal area and needle mass of Scots pine (Pinus sylvestris L.) trees in central Sweden. Forestry, 57(1): 35-43.",
+        "doi": "10.1093/forestry/57.1.35",
+        "sample_count": 164
+      },
+      {
+        "study": "Vanninen2005",
+        "citation": "Vanninen, P. & Makela, A. (2005). Carbon budget for Scots pine trees: effects of size, competition and site fertility on growth allocation and production. Tree Physiology, 25(1): 17-30.",
+        "doi": "10.1093/treephys/25.1.17",
+        "sample_count": 117
+      },
+      {
+        "study": "SantaRegina1999",
+        "citation": "Santa Regina, I. & Tarazona, T. (1999). Organic matter dynamics in beech and pine stands of mountainous Mediterranean climate area. Annals of Forest Science, 56(8): 667-677.",
+        "doi": "10.1051/forest:19990804",
+        "sample_count": 7
+      }
+    ]
+  },
+  "software_environment": {
+    "python_version": "3.13.6",
+    "sklearn_version": "1.8.0",
+    "numpy_version": "2.4.4",
+    "pandas_version": "3.0.2"
+  },
+  "training_date": "2026-10-03",
+  "status": "active"
+}

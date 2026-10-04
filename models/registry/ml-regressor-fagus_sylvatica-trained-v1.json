@@ -1,0 +1,45 @@
+{
+  "model_id": "ml-regressor-fagus_sylvatica-trained-v1",
+  "species_id": "fagus_sylvatica",
+  "model_type": "ml_gradient_boost",
+  "model_category": "scientific_trained_model",
+  "feature_weights": {
+    "w_mass_proxy": 0.84,
+    "w_volume": 54.75,
+    "w_crown": 0.55,
+    "w_age": 0.02,
+    "intercept": 8.5
+  },
+  "feature_scaling": {
+    "mass_proxy_mean": 7762.79,
+    "mass_proxy_std": 8463.64,
+    "volume_mean": 11.395,
+    "volume_std": 12.368,
+    "crown_mean": 1203.9,
+    "crown_std": 1232.03
+  },
+  "feature_importances": {
+    "wood_density_mass_proxy": 0.78,
+    "stem_volume_cyl": 0.12,
+    "crown_volume_proxy": 0.07,
+    "age_years": 0.03
+  },
+  "metrics": {
+    "sample_count": 48,
+    "r2": 0.993,
+    "rmse_kg": 575.5,
+    "mae_kg": 276.12,
+    "rse_percentage": 8.8,
+    "mean_observed_kg": 6560.01,
+    "mean_predicted_kg": 6785.53,
+    "calibration_domain": {
+      "dbh_min_cm": 12.5,
+      "dbh_max_cm": 111.8,
+      "height_min_m": 9.8,
+      "height_max_m": 38,
+      "age_min_years": 18,
+      "age_max_years": 175
+    }
+  },
+  "training_date": "2026-10-02T13:06:07.346Z"
+}

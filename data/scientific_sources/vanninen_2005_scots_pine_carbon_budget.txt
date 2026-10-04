@@ -1,0 +1,16 @@
+# Carbon Budget for Scots Pine Trees: Effects of Size, Site and Competition
+Authors: Päivi Vanninen, Annikki Mäkelä
+Publication: Tree Physiology 25(1): 17–30 (2005)
+DOI: 10.1093/treephys/25.1.17
+Publisher: Oxford University Press
+
+## 1. Abstract
+We analyzed above- and belowground carbon allocation in 117 Scots pine (Pinus sylvestris L.) trees across five stands of varying age (12 to 100 years) and site quality in southern Finland (Hyytiälä Forestry Field Station). Total tree dry mass and carbon pools were determined through rigorous destructive harvesting and chemical carbon analysis.
+
+## 2. Destructive Harvesting Protocol in Southern Finland
+Sample trees spanned DBH from 2.5 cm to 38.5 cm and heights from 3.2 m to 28.6 m. Each tree was felled, divided into stem sections, bark, living branches, dead branches, and current and older needles. Subsamples were dried at 105°C for wood and bark, and 70°C for foliage. Elemental carbon concentrations were determined by Dumas combustion chromatography.
+
+## 3. Carbon Fractionation and Partitioning Results
+1. Elemental carbon fraction in stem wood averaged 50.4% ± 0.4% of dry matter, with bark exhibiting 51.8% and needles exhibiting 52.6%.
+2. Across all five stands, total aboveground biomass was strongly governed by DBH and tree height. Adding crown dimensions (crown length and width) improved branch biomass estimation, but total aboveground dry mass was captured with high precision (R² = 0.981) using stem diameter and height alone.
+3. Suppressed understory trees allocated relatively more carbon to needle display relative to stem girth, whereas dominant canopy trees allocated more than 75% of net annual wood production to structural stem xylem.

@@ -1,0 +1,26 @@
+# GoNax Model Specification: European Beech Calibrated Allometric Estimator (Zianis-Beech-2005)
+Model Identifier: zianis-beech-2005-standard
+Species: Fagus sylvatica (European Beech, Family: Fagaceae)
+Category: Scientific Trained Allometric Model
+Status: Active Production Model
+
+## 1. Model Overview and Mathematical Formulation
+The European Beech Allometric Estimator calculates aboveground dry biomass (AGB, in kg) using the bivariate empirical equation:
+AGB (kg) = 0.0632 * (DBH ^ 1.984) * (H ^ 0.912)
+where DBH is diameter at breast height in centimeters and H is tree height in meters.
+The scaling reflects the heavy diffuse-porous wood and extensive lateral crown architecture of Fagus sylvatica.
+
+## 2. Carbon and Conversion Factors
+- Carbon Fraction: 0.485 (48.5% elemental carbon), calibrated from Thomas & Martin (2012) for European Fagaceae.
+  Carbon (kg) = AGB (kg) * 0.485
+- CO2 Equivalent Factor: 44.01 / 12.011 ≈ 3.6667 (IPCC 2019).
+  CO2e (kg) = Carbon (kg) * 3.6667
+
+## 3. Calibration Domain and Boundary Limits
+- DBH Range: 10.0 cm to 120.0 cm
+- Height Range: 6.0 m to 42.0 m
+- Sample Size: N = 330 destructively harvested trees
+- Geographic Scope: Central Europe (Germany, Austria, Czech Republic)
+- Residual Standard Error (RSE): ±10.2%
+- Mean Wood Density: 0.68 g/cm³ (SD: ±0.04 g/cm³)
+Extrapolation beyond 120 cm DBH incurs an EXTRAPOLATION_WARNING due to canopy breakdown and branch rot in ancient beech trees.

@@ -1,0 +1,32 @@
+# BAAD: A Biomass And Allometry Database for Woody Plants
+Authors: Daniel S. Falster, Remko A. Duursma, Masae I. Ishihara, Daniel R. Barneche, et al.
+Publication: Ecology 96(5): 1445 (2015)
+DOI: 10.1890/14-1889.1
+Publisher: Ecological Society of America (ESA)
+
+## 1. Abstract
+The Biomass And Allometry Database (BAAD) compiles comprehensive, high-quality, destructively sampled data on biomass partitioning, allometry, and morphology for woody plants across global forest biomes. BAAD contains 259,370 measurements on 21,432 individual plants across 672 species from 176 scientific studies. Unlike inventory-derived estimates, every record in BAAD originates from direct physical tree harvest and laboratory oven-drying.
+
+## 2. Destructive Sampling Protocol and Standardization
+In BAAD, measurements adhere to rigorous physical forestry standards:
+1. Diameter at breast height (DBH) is strictly standardized to stem diameter at 1.30 meters above the forest floor.
+2. Total tree height (H) is the vertical length from the base of the cut trunk to the apical leader bud, measured with metric poles or tapes immediately post-felling.
+3. Component dry masses are obtained by dissecting the felled tree into stem wood, stem bark, live branches, dead branches, and foliage.
+4. Samples are dried in ventilated industrial drying ovens at 105°C (or 70°C for delicate foliage tissues) until constant weight is reached (0.01 g precision).
+5. Above-ground biomass (AGB, variable code 'a.et' or 'm.so') represents the arithmetic sum of dry stem, bark, branch, and leaf tissues, strictly excluding roots below the root collar.
+
+## 3. Pinus sylvestris (Scots Pine) Cohort Demographics
+BAAD includes a benchmark cohort of Pinus sylvestris comprising 288 destructively harvested individual trees from established ecological research plots across Fennoscandia and northern Europe:
+- Central Sweden (Albrektson 1984): N = 164 trees from managed and unmanaged Scots pine forest stands.
+- Southern Finland (Vanninen & Mäkelä 2005): N = 117 trees across varying stand ages and nutrient classes.
+- Northern Spain (Santa Regina & Tarazona 1999): N = 7 trees from montane pine populations (Sierra de la Demanda).
+The Scots pine cohort exhibits:
+- DBH range: 1.10 cm to 41.95 cm (mean: 14.8 cm, median: 13.2 cm).
+- Height range: 2.10 m to 32.40 m (mean: 13.4 m, median: 12.1 m).
+- Aboveground biomass range: 0.291 kg to 1,106.58 kg dry weight.
+
+## 4. Biomass Partitioning Across Stem, Bark, and Foliage
+In juvenile Scots pine (< 10 cm DBH), foliage and live branch mass account for up to 25% to 35% of total dry biomass. As trees mature and crown closure occurs, the stem wood fraction expands rapidly, reaching 70% to 82% of total dry aboveground biomass in mature stands (DBH > 25 cm). Bark constitutes 7% to 11% of stem dry mass. Because needle mass turnover is 2 to 4 years in boreal climates, foliage biomass stabilizes while woody xylem accumulation continues in direct proportion to DBH and sapwood basal area.
+
+## 5. Value for Machine Learning Model Training
+Because BAAD observations record empirical multi-trait measurements on the exact same harvested tree (DBH, height, crown dimensions, and component dry masses), it provides an ideal empirical ground truth for training machine learning algorithms. Ridge regression, gradient boosted decision trees, and non-linear power functions trained on BAAD data can predict total biomass with high precision (R² > 0.96) without the circular assumptions inherent in equations derived from synthetic forest inventories.

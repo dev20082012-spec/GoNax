@@ -1,0 +1,45 @@
+{
+  "model_id": "ml-regressor-quercus_robur-trained-v1",
+  "species_id": "quercus_robur",
+  "model_type": "ml_gradient_boost",
+  "model_category": "scientific_trained_model",
+  "feature_weights": {
+    "w_mass_proxy": 0.84,
+    "w_volume": 54.26,
+    "w_crown": 0.55,
+    "w_age": 0.02,
+    "intercept": 8.5
+  },
+  "feature_scaling": {
+    "mass_proxy_mean": 9685.72,
+    "mass_proxy_std": 10531.41,
+    "volume_mean": 14.388,
+    "volume_std": 15.529,
+    "crown_mean": 1490.63,
+    "crown_std": 1526.82
+  },
+  "feature_importances": {
+    "wood_density_mass_proxy": 0.78,
+    "stem_volume_cyl": 0.12,
+    "crown_volume_proxy": 0.07,
+    "age_years": 0.03
+  },
+  "metrics": {
+    "sample_count": 42,
+    "r2": 0.945,
+    "rmse_kg": 1860.39,
+    "mae_kg": 1257.14,
+    "rse_percentage": 24.3,
+    "mean_observed_kg": 7650.34,
+    "mean_predicted_kg": 8907.48,
+    "calibration_domain": {
+      "dbh_min_cm": 14.9,
+      "dbh_max_cm": 128.9,
+      "height_min_m": 11.5,
+      "height_max_m": 36,
+      "age_min_years": 15,
+      "age_max_years": 199
+    }
+  },
+  "training_date": "2026-10-02T13:06:07.323Z"
+}

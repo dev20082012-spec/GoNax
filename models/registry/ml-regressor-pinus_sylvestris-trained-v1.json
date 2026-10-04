@@ -1,0 +1,45 @@
+{
+  "model_id": "ml-regressor-pinus_sylvestris-trained-v1",
+  "species_id": "pinus_sylvestris",
+  "model_type": "ml_gradient_boost",
+  "model_category": "scientific_trained_model",
+  "feature_weights": {
+    "w_mass_proxy": 0.84,
+    "w_volume": 41.14,
+    "w_crown": 0.39,
+    "w_age": 0.02,
+    "intercept": 8.5
+  },
+  "feature_scaling": {
+    "mass_proxy_mean": 2703.22,
+    "mass_proxy_std": 2919.68,
+    "volume_mean": 5.281,
+    "volume_std": 5.677,
+    "crown_mean": 599.49,
+    "crown_std": 594.57
+  },
+  "feature_importances": {
+    "wood_density_mass_proxy": 0.78,
+    "stem_volume_cyl": 0.12,
+    "crown_volume_proxy": 0.07,
+    "age_years": 0.03
+  },
+  "metrics": {
+    "sample_count": 60,
+    "r2": 0.75,
+    "rmse_kg": 862.52,
+    "mae_kg": 562.08,
+    "rse_percentage": 50.7,
+    "mean_observed_kg": 1702.72,
+    "mean_predicted_kg": 2264.8,
+    "calibration_domain": {
+      "dbh_min_cm": 9.8,
+      "dbh_max_cm": 83.3,
+      "height_min_m": 9.4,
+      "height_max_m": 32,
+      "age_min_years": 11,
+      "age_max_years": 132
+    }
+  },
+  "training_date": "2026-10-02T13:06:07.336Z"
+}

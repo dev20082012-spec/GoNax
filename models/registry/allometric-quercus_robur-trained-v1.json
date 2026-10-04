@@ -1,0 +1,36 @@
+{
+  "model_id": "allometric-quercus_robur-trained-v1",
+  "species_id": "quercus_robur",
+  "model_type": "allometric_formula",
+  "model_category": "scientific_trained_model",
+  "formula_expression": "AGB = 0.0593 * (DBH ^ 2.023) * (H ^ 0.845)",
+  "parameters": {
+    "a": 0.0593,
+    "b": 2.023,
+    "c": 0.845,
+    "correction_factor": 1.003,
+    "see_log": 0.075,
+    "dbh_min_cm": 12.2,
+    "dbh_max_cm": 134.8,
+    "height_min_m": 8.9,
+    "height_max_m": 36
+  },
+  "metrics": {
+    "sample_count": 42,
+    "r2": 0.992,
+    "rmse_kg": 695.07,
+    "mae_kg": 453.22,
+    "rse_percentage": 9.1,
+    "mean_observed_kg": 7650.34,
+    "mean_predicted_kg": 7649.44,
+    "calibration_domain": {
+      "dbh_min_cm": 14.9,
+      "dbh_max_cm": 128.9,
+      "height_min_m": 11.5,
+      "height_max_m": 36,
+      "age_min_years": 15,
+      "age_max_years": 199
+    }
+  },
+  "training_date": "2026-10-02T13:06:07.322Z"
+}

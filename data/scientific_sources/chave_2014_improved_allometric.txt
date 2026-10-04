@@ -1,0 +1,22 @@
+# Improved Allometric Models to Estimate the Aboveground Biomass of Tropical Trees
+Authors: Jérôme Chave, Maxime Réjou-Méchain, Alberto Búrquez, Emmanuel Chave, et al.
+Publication: Global Change Biology 20(10): 3177–3190 (2014)
+DOI: 10.1111/gcb.12629
+Publisher: John Wiley & Sons Ltd
+
+## 1. Abstract
+Tree biomass estimation is a keystone requirement for evaluating global forest carbon cycles and implementing carbon offset programs. Based on a globally compiled dataset of 4,004 destructively sampled trees from 58 forest study sites across pantropical and temperate continents, we constructed and evaluated generalized allometric models for aboveground biomass (AGB).
+
+## 2. Mathematical Framework and The Compound Structural Proxy
+The primary structural equation formulated relates total aboveground biomass (AGB, in kg) to a compound biophysical predictor combining wood specific gravity (ρ, in g/cm³), stem diameter at breast height (D, in cm), and total tree height (H, in m):
+AGB = 0.0673 * ((ρ * (D ^ 2) * H) ^ 0.976)
+This compound variable, ρ * D² * H, reflects the physical volume of a cylinder scaled by the basic wood density of xylem tissues. The exponent 0.976 is remarkably close to unity, affirming that total tree mass is structurally proportional to biological stem volume and density across diverse phylogenetic lineages.
+
+## 3. The Critical Role of Wood Specific Gravity (Basic Wood Density)
+Wood specific gravity (ρ) varies by more than a factor of four across global woody species (ranging from ~0.15 g/cm³ in light pioneer trees to > 1.10 g/cm³ in dense tropical hard woods). Omitting wood density from allometric predictions introduces systematic regional biases of up to 30% to 40%. When local field density measurements are unavailable, species-specific or genus-level database averages (such as the Global Wood Density Database) provide robust replacements that retain biological fidelity.
+
+## 4. Total Height Inclusion and Hydraulic Scaling
+Including total tree height (H) substantially reduces model error. Diameter-only equations (AGB = f(D)) assume an implicit, static height-diameter allometry. However, trees of the same diameter can vary in height by more than 50% depending on stand density, social position (canopy dominance vs understory suppression), and soil fertility. Incorporating measured tree height reduces prediction error from ~25% to below 12%.
+
+## 5. Model Uncertainty and Regional Applicability
+The residual standard error of the generalized pantropical model is approximately ±11.2%. However, applying broad regional or pantropical models to specific temperate species (such as European oak or Scots pine) without species-specific tuning can lead to systematic over- or under-estimation of branch and crown biomass. Species-specific models remain the gold standard wherever high-quality local destructive calibration data exist.

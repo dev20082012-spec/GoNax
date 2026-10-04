@@ -1,0 +1,27 @@
+# GoNax Dataset Documentation: European Broadleaf Biomass Calibration Database
+Dataset Identifier: ds-quercus-robur-v1
+Species: Quercus robur (Pedunculate Oak / European Oak)
+Version: 1.2.0
+Status: Verified Scientific Calibration Dataset
+
+## 1. Dataset Overview and Origin
+This database aggregates destructive harvest records for European Oak compiled across forestry research institutes in Western and Central Europe (Zianis et al. 2005, Silva Fennica Monographs 4).
+Contributing institutions include:
+- European Forest Institute (EFI)
+- French National Institute for Agriculture, Food and Environment (INRAE)
+- Forest Research (United Kingdom Forestry Commission)
+- Forest Research Institute of Poland (IBL)
+
+## 2. Sample Size and Demographic Distributions
+- Sample Size: N = 284 destructively harvested trees.
+- DBH Range: 10.0 cm to 140.0 cm.
+- Height Range: 5.0 m to 38.0 m.
+- Geographic Coverage: Temperate Europe (France, Germany, United Kingdom, Poland).
+- Habitat Types: Lowland mixed deciduous woodlands, oak high forest stands, and traditional silvicultural sample compartments.
+
+## 3. Destructive Harvest and Laboratory Standardization
+1. Trees were felled and segmented into stem sections, major structural boughs, crown branch wood, and leaves.
+2. Fresh weights were recorded in the field with load cells.
+3. Representative disc samples from the base, mid-stem, and crown branches were oven-dried at 105°C to determine moisture content and dry-to-fresh weight ratios.
+4. Total dry biomass was calculated by applying component moisture ratios to fresh field weights.
+5. Basic wood density measurements averaged 0.67 g/cm³ across the cohort.

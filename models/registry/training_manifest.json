@@ -1,0 +1,66 @@
+{
+  "pipeline_version": "1.0.0",
+  "executed_at": "2026-10-02T13:06:07.347Z",
+  "summary": [
+    {
+      "species_id": "quercus_robur",
+      "scientific_name": "Quercus robur",
+      "models": [
+        {
+          "model_id": "allometric-quercus_robur-trained-v1",
+          "type": "allometric_formula",
+          "r2": 0.992,
+          "rmse": 695.07,
+          "rse_pct": 9.1
+        },
+        {
+          "model_id": "ml-regressor-quercus_robur-trained-v1",
+          "type": "ml_gradient_boost",
+          "r2": 0.945,
+          "rmse": 1860.39,
+          "rse_pct": 24.3
+        }
+      ]
+    },
+    {
+      "species_id": "pinus_sylvestris",
+      "scientific_name": "Pinus sylvestris",
+      "models": [
+        {
+          "model_id": "allometric-pinus_sylvestris-trained-v1",
+          "type": "allometric_formula",
+          "r2": 0.99,
+          "rmse": 170.24,
+          "rse_pct": 10
+        },
+        {
+          "model_id": "ml-regressor-pinus_sylvestris-trained-v1",
+          "type": "ml_gradient_boost",
+          "r2": 0.75,
+          "rmse": 862.52,
+          "rse_pct": 50.7
+        }
+      ]
+    },
+    {
+      "species_id": "fagus_sylvatica",
+      "scientific_name": "Fagus sylvatica",
+      "models": [
+        {
+          "model_id": "allometric-fagus_sylvatica-trained-v1",
+          "type": "allometric_formula",
+          "r2": 0.992,
+          "rmse": 603.74,
+          "rse_pct": 9.2
+        },
+        {
+          "model_id": "ml-regressor-fagus_sylvatica-trained-v1",
+          "type": "ml_gradient_boost",
+          "r2": 0.993,
+          "rmse": 575.5,
+          "rse_pct": 8.8
+        }
+      ]
+    }
+  ]
+}

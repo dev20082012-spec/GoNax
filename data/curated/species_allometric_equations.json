@@ -1,0 +1,181 @@
+[
+  {
+    "scientificName": "Quercus robur",
+    "commonName": "Pedunculate Oak (European Oak)",
+    "family": "Fagaceae",
+    "geographicRegions": ["Western Europe", "Central Europe", "Eastern Europe", "British Isles"],
+    "applicableVariables": ["dbh_cm", "height_m"],
+    "woodDensityMean": 0.67,
+    "woodDensitySd": 0.05,
+    "dataset": {
+      "name": "European Broadleaf Biomass Calibration Database",
+      "version": "v1.2",
+      "sampleSize": 284,
+      "geographicCoverage": "Temperate Europe (France, Germany, UK, Poland)",
+      "doi": "10.1093/forestry/cpi052"
+    },
+    "model": {
+      "name": "Zianis-Oak-Allometry-2005",
+      "version": "1.0-prototype",
+      "modelType": "allometric_formula",
+      "formulaExpression": "AGB = 0.0567 * (DBH ^ 2.012) * (H ^ 0.873)",
+      "parameters": {
+        "a": 0.0567,
+        "b": 2.012,
+        "c": 0.873,
+        "dbhMinCm": 10.0,
+        "dbhMaxCm": 140.0,
+        "heightMinM": 5.0,
+        "heightMaxM": 38.0
+      },
+      "carbonFraction": 0.482,
+      "uncertaintyPercentage": 11.4,
+      "isPrototype": true
+    }
+  },
+  {
+    "scientificName": "Pinus sylvestris",
+    "commonName": "Scots Pine",
+    "family": "Pinaceae",
+    "geographicRegions": ["Northern Europe", "Central Europe", "Boreal Eurasia", "Fennoscandia"],
+    "applicableVariables": ["dbh_cm", "height_m"],
+    "woodDensityMean": 0.51,
+    "woodDensitySd": 0.04,
+    "dataset": {
+      "name": "Boreal & Temperate Conifer Synthesis",
+      "version": "v2.0",
+      "sampleSize": 412,
+      "geographicCoverage": "Scandinavia and Baltic forestry stations",
+      "doi": "10.1093/forestry/cpi052"
+    },
+    "model": {
+      "name": "Zianis-Pine-Allometry-2005",
+      "version": "1.0-prototype",
+      "modelType": "allometric_formula",
+      "formulaExpression": "AGB = 0.0418 * (DBH ^ 1.923) * (H ^ 0.954)",
+      "parameters": {
+        "a": 0.0418,
+        "b": 1.923,
+        "c": 0.954,
+        "dbhMinCm": 8.0,
+        "dbhMaxCm": 90.0,
+        "heightMinM": 4.0,
+        "heightMaxM": 34.0
+      },
+      "carbonFraction": 0.505,
+      "uncertaintyPercentage": 9.8,
+      "isPrototype": true
+    }
+  },
+  {
+    "scientificName": "Fagus sylvatica",
+    "commonName": "European Beech",
+    "family": "Fagaceae",
+    "geographicRegions": ["Central Europe", "Western Europe", "Carpathians"],
+    "applicableVariables": ["dbh_cm", "height_m"],
+    "woodDensityMean": 0.68,
+    "woodDensitySd": 0.04,
+    "dataset": {
+      "name": "European Beech Biomass Synthesis",
+      "version": "v1.1",
+      "sampleSize": 330,
+      "geographicCoverage": "Germany, Austria, Czech Republic",
+      "doi": "10.1093/forestry/cpi052"
+    },
+    "model": {
+      "name": "Zianis-Beech-Allometry-2005",
+      "version": "1.0-prototype",
+      "modelType": "allometric_formula",
+      "formulaExpression": "AGB = 0.0632 * (DBH ^ 1.984) * (H ^ 0.912)",
+      "parameters": {
+        "a": 0.0632,
+        "b": 1.984,
+        "c": 0.912,
+        "dbhMinCm": 10.0,
+        "dbhMaxCm": 120.0,
+        "heightMinM": 6.0,
+        "heightMaxM": 42.0
+      },
+      "carbonFraction": 0.485,
+      "uncertaintyPercentage": 10.2,
+      "isPrototype": true
+    }
+  },
+  {
+    "scientificName": "Acer pseudoplatanus",
+    "commonName": "Sycamore Maple",
+    "family": "Sapindaceae",
+    "geographicRegions": ["Central Europe", "Southern Europe", "British Isles"],
+    "applicableVariables": ["dbh_cm", "height_m"],
+    "woodDensityMean": 0.61,
+    "woodDensitySd": 0.04,
+    "dataset": {
+      "name": "Temperate Hardwood Allometric Database",
+      "version": "v1.0",
+      "sampleSize": 175,
+      "geographicCoverage": "Western and Central Europe",
+      "doi": "10.1093/forestry/cpi052"
+    },
+    "model": {
+      "name": "Zianis-Maple-Allometry-2005",
+      "version": "1.0-prototype",
+      "modelType": "allometric_formula",
+      "formulaExpression": "AGB = 0.0521 * (DBH ^ 2.045) * (H ^ 0.865)",
+      "parameters": {
+        "a": 0.0521,
+        "b": 2.045,
+        "c": 0.865,
+        "dbhMinCm": 8.0,
+        "dbhMaxCm": 95.0,
+        "heightMinM": 5.0,
+        "heightMaxM": 32.0
+      },
+      "carbonFraction": 0.478,
+      "uncertaintyPercentage": 12.1,
+      "isPrototype": true
+    }
+  },
+  {
+    "scientificName": "Pseudotsuga menziesii",
+    "commonName": "Douglas Fir",
+    "family": "Pinaceae",
+    "geographicRegions": ["Pacific Northwest North America", "European Plantation Zones"],
+    "applicableVariables": ["dbh_cm", "height_m"],
+    "woodDensityMean": 0.49,
+    "woodDensitySd": 0.05,
+    "dataset": {
+      "name": "USDA Forest Service Biomass Synthesis",
+      "version": "v3.1",
+      "sampleSize": 520,
+      "geographicCoverage": "North America (Washington, Oregon, British Columbia)",
+      "doi": "10.1046/j.1469-8137.2003.00764.x"
+    },
+    "model": {
+      "name": "Jenkins-DouglasFir-Allometry-2003",
+      "version": "1.0-prototype",
+      "modelType": "allometric_formula",
+      "formulaExpression": "AGB = 0.0475 * (DBH ^ 1.948) * (H ^ 0.928)",
+      "parameters": {
+        "a": 0.0475,
+        "b": 1.948,
+        "c": 0.928,
+        "dbhMinCm": 12.0,
+        "dbhMaxCm": 160.0,
+        "heightMinM": 6.0,
+        "heightMaxM": 60.0
+      },
+      "carbonFraction": 0.512,
+      "uncertaintyPercentage": 8.9,
+      "isPrototype": true
+    }
+  },
+  {
+    "scientificName": "Fraxinus excelsior",
+    "commonName": "European Ash",
+    "family": "Oleaceae",
+    "geographicRegions": ["Temperate Europe", "British Isles", "Baltic States"],
+    "applicableVariables": ["dbh_cm", "height_m"],
+    "woodDensityMean": 0.69,
+    "woodDensitySd": 0.06
+  }
+]

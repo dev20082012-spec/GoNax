@@ -1,0 +1,17 @@
+# Sapwood Basal Area and Needle Mass of Scots Pine in Central Sweden
+Authors: Arne Albrektson
+Publication: Forestry: An International Journal of Forest Research 57(1): 35–43 (1984)
+DOI: 10.1093/forestry/57.1.35
+Publisher: Oxford University Press
+
+## 1. Abstract
+The relationship between stem dimensions, sapwood basal area, and crown needle dry biomass was investigated across 164 Scots pine (Pinus sylvestris L.) trees felled in central Sweden (latitudes 60°N to 62°N). The primary objective was to test the Shinozaki pipe model theory in managed conifer stands and evaluate how age and crown density modulate needle-to-stem mass ratios.
+
+## 2. Destructive Sampling Methodology
+All 164 sample trees were felled, measured for total height and diameter at breast height (1.30 m). Stems were sectioned at 1-meter intervals. Discs were taken at each cut, sapwood boundaries were demarcated immediately by dye immersion (methyl orange/trypan blue), and rings were counted. Needles were detached from all living branch whorls, dried at 85°C to constant weight, and weighed with 0.1 g precision.
+
+## 3. Findings on Scots Pine Allometry and Allocation
+Key findings from the Swedish harvests:
+1. Needle mass in Scots pine is directly proportional to sapwood basal area at the crown base (R² = 0.94), providing empirical support for the pipe model theory.
+2. In stands younger than 30 years, needle dry mass accounts for 15% to 22% of total aboveground biomass. In mature stands (> 70 years, DBH > 25 cm), needle mass constitutes less than 4% to 7% of total aboveground biomass, with stem wood accounting for over 78%.
+3. Stand thinning and competition strongly affect live crown length, but the relationship between DBH, total height, and total stem dry weight remains stable across fertility site classes in central Sweden.

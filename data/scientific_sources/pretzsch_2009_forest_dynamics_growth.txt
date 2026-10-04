@@ -1,0 +1,20 @@
+# Forest Dynamics, Growth and Yield: From Measurement to Model
+Authors: Hans Pretzsch
+Publication: Springer Forestry Monograph Series (2009)
+DOI: 10.1007/978-3-540-88307-4
+Publisher: Springer-Verlag Berlin Heidelberg
+
+## 1. Abstract
+This comprehensive treatise synthesizes decades of empirical research from long-term experimental forest plots across Central Europe (Bavaria, Germany, and Austria). It explores structural dynamics, allometry, and biomass accumulation in pure and mixed stands of European beech (Fagus sylvatica), pedunculate oak (Quercus robur), and Scots pine (Pinus sylvestris).
+
+## 2. Interspecific Growth Strategies: Beech vs Oak vs Pine
+European tree species exhibit contrasting ecological and structural strategies:
+- Fagus sylvatica (European Beech): Highly shade-tolerant climax species. Exhibits extreme crown plasticity, developing extensive horizontal lateral branches under light competition. Basic wood density averages 0.68 g/cm³. Because of dense crown branches and thick bark, beech accumulates high biomass per unit diameter.
+- Quercus robur (Pedunculate Oak): Light-demanding to moderately shade-tolerant long-lived pioneer. Characterized by high basic wood density (0.67 g/cm³) and heavy structural limbs. Mature solitary or edge oaks develop wide, sprawling crowns requiring distinct allometric treatment from dense stand-grown oaks.
+- Pinus sylvestris (Scots Pine): Light-demanding pioneer conifer adapted to sandy, nutrient-poor or bog soils. Exhibits low wood density (0.51 g/cm³) and narrow conical crowns in youth, flattening into tabular umbrellas in old age. Biomass per tree for a given DBH is consistently 25% to 35% lower than oak or beech of equivalent diameter.
+
+## 3. Wood Density Dynamics and Site Quality
+Wood density varies along environmental gradients:
+1. In ring-porous hardwoods like Quercus robur, faster growth on fertile soils typically increases the proportion of dense latewood relative to porous earlywood, leading to higher overall wood density.
+2. In conifers like Pinus sylvestris, rapid diameter growth expands the proportion of low-density earlywood tracheids, causing basic wood density to slightly decrease on high-fertility sites.
+3. In diffuse-porous hardwoods like Fagus sylvatica, wood density remains remarkably constant (0.66 to 0.70 g/cm³) across varying site fertilities.

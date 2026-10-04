@@ -1,0 +1,15 @@
+{
+  "name": "Chave et al. 2014 Pantropical Biomass Model",
+  "category": "Allometric Formula",
+  "paper": "Improved allometric models to estimate the aboveground biomass of tropical trees",
+  "doi": "10.1111/gcb.12629",
+  "equationForm": "AGB = 0.0673 * (rho * D^2 * H)^0.976",
+  "inputUnits": {
+    "rho": "g/cm3 (basic wood density)",
+    "D": "cm (DBH)",
+    "H": "m (total height)"
+  },
+  "outputUnits": "kg dry above-ground biomass",
+  "applicableRegions": ["Pantropical", "Tropical Moist Forests"],
+  "status": "reference_allometry"
+}

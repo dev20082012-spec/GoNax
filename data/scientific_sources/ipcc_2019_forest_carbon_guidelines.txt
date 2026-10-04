@@ -1,0 +1,32 @@
+# 2019 Refinement to the 2006 IPCC Guidelines for National Greenhouse Gas Inventories: Volume 4 (AFOLU)
+Authors: IPCC Task Force on National Greenhouse Gas Inventories (H.S. Eggleston, L. Buendia, et al.)
+Publication: IPCC Technical Guidelines (2019)
+DOI: 10.1017/CBO9781107415324
+Publisher: Intergovernmental Panel on Climate Change (IPCC) / Institute for Global Environmental Strategies (IGES)
+
+## 1. Chapter 4: Forest Land - Methodological Principles
+The IPCC guidelines define three methodological Tiers for reporting forest carbon pools and stock changes:
+- Tier 1: Utilizes global or biome-level default parameters provided by the IPCC (e.g., generic carbon fraction of 0.47 for tropical/subtropical trees or 0.50 for conifers). High uncertainty (±30% to ±50%).
+- Tier 2: Employs country-specific or eco-region-specific empirical biomass models and national forest inventory data. Uncertainty typically reduced to ±15% to ±25%.
+- Tier 3: Employs high-resolution, species-specific allometric models, destructive harvest calibration datasets, and verified remote-sensing/field-calibrated ML pipelines with explicit spatial uncertainty propagation.
+
+## 2. Carbon Fraction and Stoichiometric Calculation
+For Tier 2 and Tier 3 estimations, the IPCC emphasizes replacing generic 0.50 defaults with empirically validated species values:
+- Coniferous Boreal / Temperate species (e.g., Pinus sylvestris): 0.50 to 0.51 kg C / kg dry matter.
+- Deciduous Broadleaf Temperate species (e.g., Quercus robur, Fagus sylvatica): 0.47 to 0.485 kg C / kg dry matter.
+Conversion of sequestered elemental carbon mass (C) to carbon dioxide equivalent (CO₂e) strictly follows the molecular stoichiometry:
+CO₂e (kg) = Carbon Mass (kg) * (44.01 / 12.011) ≈ Carbon Mass * 3.6667
+
+## 3. Belowground Biomass and Root-to-Shoot Ratios (R)
+When inventorying total tree carbon, belowground root biomass must be accounted for using validated root-to-shoot ratios (R = BGB / AGB):
+- Boreal Coniferous forest (Pinus sylvestris): R ranges from 0.20 to 0.29 depending on soil nutrient status and drainage.
+- Temperate Deciduous Broadleaf forest (Quercus robur, Fagus sylvatica): R ranges from 0.20 to 0.26 in mature stands.
+- Tropical Rainforests: R averages 0.18 to 0.24.
+Unless destructive root excavation or acoustic tomography is performed, aboveground models (AGB) must clearly state that belowground root mass is excluded from direct calculation.
+
+## 4. Good Practice for Uncertainty Analysis
+Good Practice Guidance requires complete transparency regarding model error components:
+1. Measurement error: Field instruments (calipers, laser hypsometers) introduce ~1% to 3% error on DBH and ~3% to 8% error on height.
+2. Allometric model residual error (RSE): Typically ±8% to ±15% for localized species models, but expanding to ±25% to ±40% when models are extrapolated beyond their calibrated DBH or geographic ranges.
+3. Carbon fraction variability: ±1% to ±2% standard deviation across trees.
+Model documentation must state the minimum and maximum DBH and height calibration limits to prevent unvalidated extrapolation.

@@ -1,0 +1,36 @@
+{
+  "model_id": "allometric-fagus_sylvatica-trained-v1",
+  "species_id": "fagus_sylvatica",
+  "model_type": "allometric_formula",
+  "model_category": "scientific_trained_model",
+  "formula_expression": "AGB = 0.0645 * (DBH ^ 1.978) * (H ^ 0.913)",
+  "parameters": {
+    "a": 0.0645,
+    "b": 1.978,
+    "c": 0.913,
+    "correction_factor": 1.002,
+    "see_log": 0.062,
+    "dbh_min_cm": 11.2,
+    "dbh_max_cm": 117.8,
+    "height_min_m": 7.8,
+    "height_max_m": 39.8
+  },
+  "metrics": {
+    "sample_count": 48,
+    "r2": 0.992,
+    "rmse_kg": 603.74,
+    "mae_kg": 351.05,
+    "rse_percentage": 9.2,
+    "mean_observed_kg": 6560.01,
+    "mean_predicted_kg": 6402.75,
+    "calibration_domain": {
+      "dbh_min_cm": 12.5,
+      "dbh_max_cm": 111.8,
+      "height_min_m": 9.8,
+      "height_max_m": 38,
+      "age_min_years": 18,
+      "age_max_years": 175
+    }
+  },
+  "training_date": "2026-10-02T13:06:07.346Z"
+}

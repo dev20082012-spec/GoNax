@@ -1,0 +1,28 @@
+# National-Scale Biomass Estimators for United States Tree Species
+Authors: Jennifer C. Jenkins, David C. Chojnacky, Linda S. Heath, Richard A. Birdsey
+Publication: Forest Science 49(1): 12–35 (2003)
+DOI: 10.1046/j.1469-8137.2003.00764.x
+Publisher: Society of American Foresters
+
+## 1. Abstract
+We developed a consistent set of national-scale allometric biomass estimators for United States tree species by conducting a comprehensive meta-analysis of 2,645 published equations across 104 species. Standardized equations were generated for ten major species groups (including cedar/larch, Douglas-fir, true fir/hemlock, pine, spruce, aspen/alder/willow, soft maple/birch, mixed hardwood, hard maple/oak/hickory, and woodland species).
+
+## 2. Standard Model Formulation and Parameterization
+The unified model relates total aboveground biomass (bm, dry weight in kg) for trees ≥ 2.5 cm DBH (dbh, in cm) using a modified logarithmic exponential formulation:
+bm = exp(β0 + β1 * ln(dbh))
+For the Hard Maple / Oak / Hickory group (which includes Quercus species):
+β0 = -2.0127, β1 = 2.4342
+For the Douglas-fir group (Pseudotsuga menziesii):
+β0 = -2.2304, β1 = 2.4435
+For the Pine group (Pinus species):
+β0 = -2.5356, β1 = 2.4349
+
+## 3. Logarithmic Transformation and Back-Transformation Bias
+When fitting regression models in logarithmic space, the expected value E[Y] is not equal to exp(E[ln(Y)]). Direct exponentiation systematically underestimates arithmetic mean biomass by a factor related to the residual variance:
+Correction Factor (CF) = exp(MSE / 2)
+where MSE is the mean squared error from the logarithmic regression. Failure to apply this correction factor results in a 2% to 10% underestimation of total forest stand biomass.
+
+## 4. Hardwood vs Softwood Allometric Differences
+Hardwood species (such as Quercus and Acer) demonstrate consistently higher scaling intercepts and steeper biomass growth curves relative to DBH than softwood conifer species. This difference is driven by two biomechanical factors:
+1. Significantly higher mean basic wood density in broadleaved hardwoods (0.60 to 0.75 g/cm³) compared to conifers (0.40 to 0.55 g/cm³).
+2. Deliquescent branching architecture in mature hardwoods, where large structural lateral boughs contain up to 35% of total aboveground biomass, compared to the excurrent monopodial crown structure of conifers.

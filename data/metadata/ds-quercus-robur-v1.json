@@ -1,0 +1,83 @@
+{
+  "dataset_id": "ds-eur-oak-v1",
+  "name": "European Pedunculate Oak Destructive Harvest Dataset",
+  "species_id": "quercus_robur",
+  "scientific_name": "Quercus robur",
+  "common_name": "Pedunculate Oak",
+  "family": "Fagaceae",
+  "version": "1.2.0",
+  "source": "European Forestry Research Institute & Silva Fennica",
+  "publication_reference": {
+    "doi": "10.1093/forestry/cpi052",
+    "citation": "Zianis, D., et al. (2005). Biomass and stem volume equations for tree species in Europe. Silva Fennica Monographs, 4, 1-63.",
+    "institution": "Finnish Forest Research Institute (Metla)"
+  },
+  "geographic_scope": {
+    "description": "Temperate Central and Western Europe",
+    "regions": ["Western Europe", "Central Europe", "British Isles", "Eastern Europe"],
+    "latitude_bounds": [46.0, 56.5],
+    "longitude_bounds": [-3.5, 18.5],
+    "climate_zones": ["Cfb - Temperate Oceanic", "Dfb - Warm-summer Humid Continental"]
+  },
+  "sample_count": 284,
+  "collection_methodology": "Destructive whole-tree felling. Component fractionation (stem wood, branches, bark, foliage) with oven drying at 105°C until stable dry mass.",
+  "measurement_definitions": {
+    "dbh_cm": {
+      "name": "Diameter at Breast Height",
+      "definition": "Stem diameter measured perpendicularly at 1.30 m height above ground level.",
+      "unit": "cm",
+      "precision": 0.1,
+      "calibration_range": [10.0, 140.0]
+    },
+    "height_m": {
+      "name": "Total Tree Height",
+      "definition": "Vertical distance from stem base to the highest living apical bud.",
+      "unit": "m",
+      "precision": 0.1,
+      "calibration_range": [5.0, 38.0]
+    },
+    "crown_diameter_m": {
+      "name": "Crown Spread Diameter",
+      "definition": "Arithmetic mean of two orthogonal horizontal crown projection diameters.",
+      "unit": "m",
+      "precision": 0.1,
+      "calibration_range": [2.5, 24.0]
+    },
+    "age_years": {
+      "name": "Tree Age",
+      "definition": "Dendrochronological ring count evaluated on cross-sectional stem disks at trunk base.",
+      "unit": "years",
+      "precision": 1,
+      "calibration_range": [15, 220]
+    },
+    "wood_density_g_cm3": {
+      "name": "Basic Wood Density",
+      "definition": "Oven-dry mass divided by green (water-saturated) volume of xylem tissue.",
+      "unit": "g/cm3",
+      "precision": 0.01,
+      "species_mean": 0.67,
+      "species_sd": 0.05
+    }
+  },
+  "allowed_input_variables": [
+    "dbh_cm",
+    "height_m",
+    "crown_diameter_m",
+    "age_years",
+    "wood_density_override",
+    "elevation_m",
+    "latitude",
+    "longitude"
+  ],
+  "target_variables": [
+    "above_ground_biomass_kg"
+  ],
+  "preprocessing_information": {
+    "outlier_handling": "Cook's distance filter (threshold D > 4/n excluded).",
+    "missing_values": "Samples with missing DBH or total height removed from training set.",
+    "transformations": "Natural log transformation applied for allometric power-law parameter estimation with Baskerville back-transformation correction factor.",
+    "validation_split": "70% Train, 15% Validation, 15% Test stratified by 10-cm DBH bins."
+  },
+  "release_date": "2024-05-15",
+  "status": "verified_scientific_dataset"
+}

@@ -1,0 +1,39 @@
+{
+  "project": "GoNax Carbon Intelligence",
+  "species": {
+    "species_id": "pinus_sylvestris",
+    "scientific_name": "Pinus sylvestris",
+    "common_name": "Scots Pine",
+    "family": "Pinaceae"
+  },
+  "raw_dataset": {
+    "source": "BAAD (Biomass And Allometry Database)",
+    "version": "1.0.1",
+    "doi": "10.1890/14-1889.1",
+    "file_path": "data/raw/baad_data/baad_data.csv"
+  },
+  "clean_dataset": {
+    "output_csv": "data/clean/pinus_sylvestris_baad_clean.csv",
+    "output_json": "data/clean/pinus_sylvestris_baad_clean.json",
+    "metadata_json": "data/metadata/ds-pinus-sylvestris-baad-v1.json"
+  },
+  "splits": {
+    "train_ratio": 0.70,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "random_state": 42,
+    "stratify_variable": "dbh_cm",
+    "output_dir": "data/splits"
+  },
+  "features": [
+    "dbh_cm",
+    "height_m",
+    "cylindrical_volume_proxy_m3"
+  ],
+  "target": "above_ground_biomass_kg",
+  "model_artifact": {
+    "output_json": "models/registry/trained-pinus-sylvestris-baad-v1.json",
+    "model_id": "trained-pinus-sylvestris-baad-v1",
+    "model_version": "1.0.0"
+  }
+}
