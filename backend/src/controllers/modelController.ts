@@ -50,7 +50,7 @@ export class ModelController {
         try {
           const sp = await this.speciesRepo.findById(req.params.id);
           if (sp) {
-            speciesId = sp.slug || sp.scientific_name.toLowerCase().replace(/\s+/g, '_');
+            speciesId = sp.scientific_name.toLowerCase().replace(/\s+/g, '_');
             models = this.registry.getModelsForSpecies(speciesId);
           }
         } catch {

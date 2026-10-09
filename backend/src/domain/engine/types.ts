@@ -8,6 +8,7 @@ export interface TreeMeasurementInput {
   woodDensityOverride?: number;
   latitude?: number;
   longitude?: number;
+  geographicRegion?: string;
   notes?: string;
 }
 

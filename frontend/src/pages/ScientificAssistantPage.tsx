@@ -241,7 +241,7 @@ export const ScientificAssistantPage: React.FC<Props> = ({
         </div>
         <div className="header-actions">
           <button className="btn-benchmark" onClick={handleRunBenchmark}>
-            📊 Run Scientific Benchmark Suite
+            Run Scientific Benchmark Suite
           </button>
         </div>
       </div>
@@ -381,7 +381,7 @@ export const ScientificAssistantPage: React.FC<Props> = ({
       <div className="dialogue-container">
         {messages.length === 0 ? (
           <div className="empty-assistant-state">
-            <div className="empty-icon">🔬</div>
+            <div className="empty-icon font-mono" style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent-primary)' }}>[Evidence Core]</div>
             <h3>Explore Species Allometry & Literature Evidence</h3>
             <p>
               Ask any question about <strong>{selectedSpecies?.scientific_name || 'selected tree species'}</strong>,
@@ -524,7 +524,7 @@ export const ScientificAssistantPage: React.FC<Props> = ({
                                       className="btn-inspect-source"
                                       onClick={() => setInspectedSourceId(cit.sourceId)}
                                     >
-                                      🔍 Inspect Source Evidence
+                                      [Inspect Source Evidence]
                                     </button>
                                   </div>
                                 </div>

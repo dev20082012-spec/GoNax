@@ -10,14 +10,16 @@ export class ObservationRepository {
       crown_diameter_m: row.crown_diameter_m != null ? Number(row.crown_diameter_m) : null,
       wood_density_override: row.wood_density_override != null ? Number(row.wood_density_override) : null,
       latitude: row.latitude != null ? Number(row.latitude) : null,
-      longitude: row.longitude != null ? Number(row.longitude) : null
+      longitude: row.longitude != null ? Number(row.longitude) : null,
+      user_id: row.user_id || null,
+      session_id: row.session_id || null
     };
   }
 
   async findById(id: string): Promise<TreeObservationEntity | null> {
     const db = await getDatabase();
     const rows = await db.query(
-      'SELECT id, species_id, dbh_cm, height_m, crown_diameter_m, wood_density_override, latitude, longitude, observation_notes, created_at FROM tree_observations WHERE id = $1',
+      'SELECT id, species_id, dbh_cm, height_m, crown_diameter_m, wood_density_override, latitude, longitude, observation_notes, user_id, session_id, created_at FROM tree_observations WHERE id = $1',
       [id]
     );
     return rows.length > 0 ? this.parseObservation(rows[0]) : null;
@@ -26,7 +28,7 @@ export class ObservationRepository {
   async findBySpeciesId(speciesId: string): Promise<TreeObservationEntity[]> {
     const db = await getDatabase();
     const rows = await db.query(
-      'SELECT id, species_id, dbh_cm, height_m, crown_diameter_m, wood_density_override, latitude, longitude, observation_notes, created_at FROM tree_observations WHERE species_id = $1 ORDER BY created_at DESC',
+      'SELECT id, species_id, dbh_cm, height_m, crown_diameter_m, wood_density_override, latitude, longitude, observation_notes, user_id, session_id, created_at FROM tree_observations WHERE species_id = $1 ORDER BY created_at DESC',
       [speciesId]
     );
     return rows.map(r => this.parseObservation(r));
@@ -35,8 +37,8 @@ export class ObservationRepository {
   async create(obs: TreeObservationEntity): Promise<TreeObservationEntity> {
     const db = await getDatabase();
     await db.execute(
-      `INSERT INTO tree_observations (id, species_id, dbh_cm, height_m, crown_diameter_m, wood_density_override, latitude, longitude, observation_notes, created_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+      `INSERT INTO tree_observations (id, species_id, dbh_cm, height_m, crown_diameter_m, wood_density_override, latitude, longitude, observation_notes, user_id, session_id, created_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
       [
         obs.id,
         obs.species_id,
@@ -47,6 +49,8 @@ export class ObservationRepository {
         obs.latitude || null,
         obs.longitude || null,
         obs.observation_notes || null,
+        obs.user_id || null,
+        obs.session_id || null,
         obs.created_at || new Date().toISOString()
       ]
     );

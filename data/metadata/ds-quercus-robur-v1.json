@@ -7,6 +7,10 @@
   "family": "Fagaceae",
   "version": "1.2.0",
   "source": "European Forestry Research Institute & Silva Fennica",
+  "source_url": "https://doi.org/10.1093/forestry/cpi052",
+  "access_date": "2024-05-15",
+  "license": "CC-BY 4.0",
+  "permitted_uses": "Open scientific research, non-commercial and commercial allometric evaluation with citation attribution",
   "publication_reference": {
     "doi": "10.1093/forestry/cpi052",
     "citation": "Zianis, D., et al. (2005). Biomass and stem volume equations for tree species in Europe. Silva Fennica Monographs, 4, 1-63.",
@@ -59,6 +63,39 @@
       "species_sd": 0.05
     }
   },
+  "target_variables": [
+    "above_ground_biomass_kg"
+  ],
+  "target_variable_definition": "Total oven-dry above-ground biomass of stem wood, bark, branches, and crown in kg, dried at 105°C to constant weight. Coarse and fine roots are strictly excluded.",
+  "known_missingness_and_limitations": {
+    "missingness": "Crown spread diameter missing in 31% of older inventory plots; tree age unavailable for non-felled border trees.",
+    "geographic_limitation": "Calibrated across temperate European stands; does not encompass drought-stressed Mediterranean or high-altitude stands.",
+    "allometric_envelope": "Broad coverage up to 140 cm DBH; veteran trees above 140 cm exhibit higher internal rot variance not captured in destructive models."
+  },
+  "processing_and_transformation_history": [
+    {
+      "step": 1,
+      "action": "Harvest observation compilation from EFI and national forestry monographs.",
+      "records_in": 310,
+      "records_out": 298
+    },
+    {
+      "step": 2,
+      "action": "Cook's distance outlier screening (threshold D > 4/n); flagged 14 questionable trees for manual review.",
+      "records_in": 298,
+      "records_out": 284
+    },
+    {
+      "step": 3,
+      "action": "Logarithmic regression fitting with Baskerville back-transformation correction factor.",
+      "records_in": 284,
+      "records_out": 284
+    }
+  ],
+  "raw_source_file": "data/raw/quercus_robur_raw.json",
+  "raw_file_sha256": "1AE6AC85948839073B8531983ABCC3FD9089471EF43CA56618ED4FA17AF836BF",
+  "clean_source_file": "data/clean/quercus_robur_clean.json",
+  "clean_file_sha256": "FF256B11CE12267420F463CC17E7ACB814BD16E88F44B8783435BE1C77493E63",
   "allowed_input_variables": [
     "dbh_cm",
     "height_m",
@@ -68,9 +105,6 @@
     "elevation_m",
     "latitude",
     "longitude"
-  ],
-  "target_variables": [
-    "above_ground_biomass_kg"
   ],
   "preprocessing_information": {
     "outlier_handling": "Cook's distance filter (threshold D > 4/n excluded).",

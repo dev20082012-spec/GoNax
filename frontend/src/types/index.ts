@@ -207,6 +207,7 @@ export interface EnrichedPrediction {
     confidence_lower_bound_kg: number;
     confidence_upper_bound_kg: number;
     is_prototype: boolean;
+    is_demo_run?: boolean;
     created_at: string;
   };
   observation: {

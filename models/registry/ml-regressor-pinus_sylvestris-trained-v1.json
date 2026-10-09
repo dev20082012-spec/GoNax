@@ -3,6 +3,17 @@
   "species_id": "pinus_sylvestris",
   "model_type": "ml_gradient_boost",
   "model_category": "scientific_trained_model",
+  "purpose": "Experimental gradient boost regressor candidate for Pinus sylvestris.",
+  "prediction_target_definition": "Total dry above-ground biomass (stem, bark, branches, needles) in kg.",
+  "preprocessing_version": "boreal-pine-v2.0",
+  "artifact_checksum_sha256": "B582B4AA876E16C3EA58BED00B445F3710851711CD39AB8256488CECBBABE658",
+  "reproducible_configuration": {
+    "algorithm": "GradientBoostingRegressor",
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "random_seed": 42
+  },
+  "train_val_test_methodology": "70/15/15 random split across N=60 cohort records.",
   "feature_weights": {
     "w_mass_proxy": 0.84,
     "w_volume": 41.14,
@@ -41,5 +52,18 @@
       "age_max_years": 132
     }
   },
-  "training_date": "2026-10-02T13:06:07.336Z"
+  "uncertainty_method": "Residual variance analysis.",
+  "known_limitations": [
+    "High residual error (RSE 50.7%) and sample underfitting.",
+    "Not approved for default production scientific estimates pending expanded training cohort."
+  ],
+  "training_date": "2026-10-02T13:06:07.336Z",
+  "status": "candidate",
+  "governance_status": "candidate",
+  "governance_review": {
+    "reviewed_by": "Automated Quality Gate",
+    "review_date": "2026-10-02",
+    "status": "candidate",
+    "review_notes": "RSE exceeds 20% quality threshold (actual: 50.7%). Retained as research candidate artifact; default serving blocked."
+  }
 }

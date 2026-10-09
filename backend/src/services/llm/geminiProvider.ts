@@ -54,7 +54,7 @@ Always cite the primary authors when explaining the model basis.`;
       throw new Error(`Gemini API error (${res.status}): ${errText}`);
     }
 
-    const json = await res.json();
+    const json: any = await res.json();
     const candidate = json.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!candidate) {
       throw new Error('Empty response from Gemini LLM.');

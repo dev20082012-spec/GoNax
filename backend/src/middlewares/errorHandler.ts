@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
+import { appLogger } from '../utils/logger';
+import { config } from '../config';
 
 export function errorHandler(
   err: any,
@@ -7,16 +9,32 @@ export function errorHandler(
   next: NextFunction
 ) {
   const status = err.status || err.statusCode || 500;
-  const message = err.message || 'Internal Server Error';
-  const reqId = req.id || '-';
+  const reqId = req.id || (req.headers['x-request-id'] as string) || '-';
 
-  console.error(`[Error] [${reqId}] [${req.method}] ${req.url} -> ${status}:`, err);
+  // Determine user-safe message
+  let userMessage = err.message || 'Internal Server Error';
+  if (status === 500 && config.nodeEnv === 'production') {
+    userMessage = 'An unexpected internal error occurred. Please reference the Request ID when contacting support.';
+  }
+
+  // Structured logging of error
+  appLogger.error(
+    'HTTP',
+    `Unhandled error in ${req.method} ${req.originalUrl} (${status})`,
+    err,
+    {
+      statusCode: status,
+      path: req.originalUrl,
+      details: err.details || undefined
+    },
+    reqId
+  );
 
   res.status(status).json({
     success: false,
     requestId: reqId,
-    error: message,
-    ...(process.env.NODE_ENV === 'development' ? { stack: err.stack } : {})
+    error: userMessage,
+    ...(err.details ? { details: err.details } : {}),
+    ...(config.nodeEnv === 'development' ? { stack: err.stack } : {})
   });
 }
-

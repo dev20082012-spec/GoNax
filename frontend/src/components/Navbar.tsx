@@ -22,9 +22,17 @@ interface Props {
   setCurrentPage: (page: PageView) => void;
   activeSpeciesId?: string | null;
   comparisonCount?: number;
+  onOpenGlossary?: () => void;
+  onOpenWalkthrough?: () => void;
 }
 
-export const Navbar: React.FC<Props> = ({ currentPage, setCurrentPage, comparisonCount = 0 }) => {
+export const Navbar: React.FC<Props> = ({
+  currentPage,
+  setCurrentPage,
+  comparisonCount = 0,
+  onOpenGlossary,
+  onOpenWalkthrough
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navigate = (page: PageView) => {
@@ -48,6 +56,7 @@ export const Navbar: React.FC<Props> = ({ currentPage, setCurrentPage, compariso
             <path d="M12 22V12" stroke="currentColor" strokeWidth="2"/>
           </svg>
           <span>GoNax</span>
+          <span className="brand-sub">Carbon Intelligence</span>
         </div>
 
         <button
@@ -99,9 +108,7 @@ export const Navbar: React.FC<Props> = ({ currentPage, setCurrentPage, compariso
           <button
             className={`nav-button ${currentPage === 'assistant' ? 'active' : ''}`}
             onClick={() => navigate('assistant')}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}
           >
-            <span style={{ fontSize: '0.85rem' }}>🔬</span>
             Scientific Assistant
           </button>
           <button
@@ -110,6 +117,30 @@ export const Navbar: React.FC<Props> = ({ currentPage, setCurrentPage, compariso
           >
             Methodology
           </button>
+          {onOpenGlossary && (
+            <button
+              className="nav-button"
+              onClick={() => {
+                setMenuOpen(false);
+                onOpenGlossary();
+              }}
+              title="Open Forestry & Carbon Allometry Glossary"
+            >
+              Glossary
+            </button>
+          )}
+          {onOpenWalkthrough && (
+            <button
+              className="nav-button"
+              onClick={() => {
+                setMenuOpen(false);
+                onOpenWalkthrough();
+              }}
+              title="Start guided first-use walkthrough"
+            >
+              Walkthrough
+            </button>
+          )}
           {comparisonCount > 0 && (
             <button
               className={`nav-button ${currentPage === 'comparison' ? 'active' : ''}`}
@@ -122,7 +153,7 @@ export const Navbar: React.FC<Props> = ({ currentPage, setCurrentPage, compariso
             className="nav-cta"
             onClick={() => navigate('measure')}
           >
-            New Measurement
+            + New Measurement
           </button>
         </nav>
       </div>

@@ -16,6 +16,8 @@ import { AboutPage } from './pages/AboutPage';
 import { ResearchAdminPage } from './pages/ResearchAdminPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
+import { ScientificGlossaryModal } from './components/ScientificGlossaryModal';
+import { FirstUseWalkthrough } from './components/FirstUseWalkthrough';
 import { EnrichedPrediction } from './types';
 
 export const App: React.FC = () => {
@@ -25,13 +27,15 @@ export const App: React.FC = () => {
   const [activePredictionData, setActivePredictionData] = useState<EnrichedPrediction | null>(null);
   const [comparisonIds, setComparisonIds] = useState<string[]>([]);
 
-  // dont touch this state otherwise routing goess crazy lol
+  // Global modals state
+  const [isGlossaryOpen, setIsGlossaryOpen] = useState<boolean>(false);
+  const [isWalkthroughOpen, setIsWalkthroughOpen] = useState<boolean>(false);
+
   const handleSelectSpeciesToMeasure = (speciesId: string) => {
     setSelectedSpeciesIdForMeasurement(speciesId);
     setCurrentPage('measure');
   };
 
-  // autometically save prediciton into compare list
   const handlePredictionComplete = (prediction: EnrichedPrediction) => {
     setActivePredictionId(prediction.prediction.id);
     setActivePredictionData(prediction);
@@ -41,7 +45,6 @@ export const App: React.FC = () => {
     setCurrentPage('result');
   };
 
-  // reseting data here so it reload fresh from backend servr
   const handleViewPrediction = (id: string) => {
     setActivePredictionId(id);
     setActivePredictionData(null); 
@@ -79,12 +82,19 @@ export const App: React.FC = () => {
     setCurrentPage('assistant');
   };
 
+  const handleStartWalkthroughDemo = () => {
+    setIsWalkthroughOpen(false);
+    setCurrentPage('measure');
+  };
+
   return (
     <div className="app-container">
       <Navbar
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         comparisonCount={comparisonIds.length}
+        onOpenGlossary={() => setIsGlossaryOpen(true)}
+        onOpenWalkthrough={() => setIsWalkthroughOpen(true)}
       />
 
       <main className="main-content">
@@ -92,6 +102,8 @@ export const App: React.FC = () => {
           <LandingPage
             setCurrentPage={setCurrentPage}
             onSelectSpeciesToMeasure={handleSelectSpeciesToMeasure}
+            onOpenWalkthrough={() => setIsWalkthroughOpen(true)}
+            onOpenGlossary={() => setIsGlossaryOpen(true)}
           />
         )}
 
@@ -114,6 +126,7 @@ export const App: React.FC = () => {
           <MeasurementFormPage
             initialSpeciesId={selectedSpeciesIdForMeasurement}
             onPredictionComplete={handlePredictionComplete}
+            onNavigate={setCurrentPage}
           />
         )}
 
@@ -167,6 +180,19 @@ export const App: React.FC = () => {
 
         {currentPage === 'terms' && <TermsPage setCurrentPage={setCurrentPage} />}
       </main>
+
+      {/* Global Scientific Modals */}
+      <ScientificGlossaryModal
+        isOpen={isGlossaryOpen}
+        onClose={() => setIsGlossaryOpen(false)}
+      />
+
+      <FirstUseWalkthrough
+        isOpen={isWalkthroughOpen}
+        onClose={() => setIsWalkthroughOpen(false)}
+        onStartMeasurementWithDemo={handleStartWalkthroughDemo}
+        onNavigate={setCurrentPage}
+      />
 
       <Footer setCurrentPage={setCurrentPage} />
     </div>

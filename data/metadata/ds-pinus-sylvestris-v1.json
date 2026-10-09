@@ -7,6 +7,10 @@
   "family": "Pinaceae",
   "version": "2.0.0",
   "source": "Fennoscandian Forestry Consortium & Swedish University of Agricultural Sciences (SLU)",
+  "source_url": "https://doi.org/10.1093/forestry/cpi052",
+  "access_date": "2024-04-20",
+  "license": "CC-BY 4.0",
+  "permitted_uses": "Open scientific research, non-commercial and commercial allometric evaluation with citation attribution",
   "publication_reference": {
     "doi": "10.1093/forestry/cpi052",
     "citation": "Zianis, D., et al. (2005). Biomass and stem volume equations for tree species in Europe. Silva Fennica Monographs, 4, 1-63.",
@@ -20,7 +24,7 @@
     "climate_zones": ["Dfc - Subarctic", "Dfb - Warm-summer Humid Continental"]
   },
   "sample_count": 412,
-  "collection_methodology": "Destructive tree felling during winter dormant season. Direct weighing of dry stem wood, branches, needles, and stump.",
+  "collection_methodology": "Destructive tree felling during winter dormant season. Direct weighing of dry stem wood, branches, needles, and bark after oven drying at 105°C.",
   "measurement_definitions": {
     "dbh_cm": {
       "name": "Diameter at Breast Height",
@@ -52,6 +56,39 @@
       "species_sd": 0.04
     }
   },
+  "target_variables": [
+    "above_ground_biomass_kg"
+  ],
+  "target_variable_definition": "Total oven-dry above-ground biomass of stem wood, bark, branches, and needles in kg, dried at 105°C to constant weight. Below-ground root systems excluded.",
+  "known_missingness_and_limitations": {
+    "missingness": "Stand age recorded at stand level, not tree ring count; fine branch needle ratio estimated from subsamples.",
+    "geographic_limitation": "Calibrated on high-latitude boreal conditions; uncalibrated in drought-prone southern pine provenances.",
+    "allometric_envelope": "Sample spans DBH 8 cm to 90 cm; dwarf tundra pines (< 8 cm DBH) outside calibrated domain."
+  },
+  "processing_and_transformation_history": [
+    {
+      "step": 1,
+      "action": "Consolidation of Nordic harvest cohorts from Sweden, Finland, and Norway.",
+      "records_in": 435,
+      "records_out": 421
+    },
+    {
+      "step": 2,
+      "action": "Screening of dry weight conversions and exclusion of damaged/broken crowns.",
+      "records_in": 421,
+      "records_out": 412
+    },
+    {
+      "step": 3,
+      "action": "Logarithmic regression fitting with standard error correction factor.",
+      "records_in": 412,
+      "records_out": 412
+    }
+  ],
+  "raw_source_file": "data/raw/pinus_sylvestris_raw.json",
+  "raw_file_sha256": "1C9EAEEA7A7B4F811B3C666DAE5D8252EE14F1D6407A33203B14838B70F92941",
+  "clean_source_file": "data/clean/pinus_sylvestris_clean.json",
+  "clean_file_sha256": "8ED1E77F6C0D5DFACD0581860C6BD322AD132A463687ED01624B6E10CAB0513B",
   "allowed_input_variables": [
     "dbh_cm",
     "height_m",
@@ -61,9 +98,6 @@
     "elevation_m",
     "latitude",
     "longitude"
-  ],
-  "target_variables": [
-    "above_ground_biomass_kg"
   ],
   "preprocessing_information": {
     "outlier_handling": "Residual standard error filtering on preliminary log-linear fits.",

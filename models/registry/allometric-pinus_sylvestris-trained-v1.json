@@ -3,7 +3,16 @@
   "species_id": "pinus_sylvestris",
   "model_type": "allometric_formula",
   "model_category": "scientific_trained_model",
+  "purpose": "Allometric power-law baseline regression for Scots pine.",
+  "prediction_target_definition": "Above-ground dry biomass in kilograms (roots excluded).",
+  "preprocessing_version": "boreal-pine-v2.0",
+  "artifact_checksum_sha256": "05D992F2D35465B5E236B3B8CDC6804A97B4ED564FD502B7526BADD1338BA100",
   "formula_expression": "AGB = 0.0416 * (DBH ^ 1.943) * (H ^ 0.931)",
+  "reproducible_configuration": {
+    "algorithm": "Log-Linear Least Squares with Baskerville Correction",
+    "log_transformation": "ln(AGB) = ln(a) + b*ln(DBH) + c*ln(H)"
+  },
+  "train_val_test_methodology": "70/15/15 stratified split across N=60 cohort records.",
   "parameters": {
     "a": 0.0416,
     "b": 1.943,
@@ -32,5 +41,11 @@
       "age_max_years": 132
     }
   },
-  "training_date": "2026-10-02T13:06:07.335Z"
+  "uncertainty_method": "Multiplicative log-normal error model (RSE 10.0%).",
+  "known_limitations": [
+    "Does not include wood density as an explicit dynamic feature."
+  ],
+  "training_date": "2026-10-02T13:06:07.335Z",
+  "status": "candidate",
+  "governance_status": "candidate"
 }

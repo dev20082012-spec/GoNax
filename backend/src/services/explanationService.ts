@@ -182,7 +182,7 @@ User Question: "${question}"`
       throw new Error(`Gemini API error (${res.status}): ${errText}`);
     }
 
-    const data = await res.json();
+    const data: any = await res.json();
     const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!candidate) {
       throw new Error('Empty response received from Gemini.');

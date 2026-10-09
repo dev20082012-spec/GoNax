@@ -8,5 +8,7 @@ export interface TreeObservationEntity {
   latitude?: number | null;
   longitude?: number | null;
   observation_notes?: string | null;
+  user_id?: string | null;
+  session_id?: string | null;
   created_at?: string;
 }

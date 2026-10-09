@@ -16,6 +16,8 @@ export interface EnrichedPredictionRecord {
     latitude?: number | null;
     longitude?: number | null;
     observation_notes?: string | null;
+    user_id?: string | null;
+    session_id?: string | null;
     created_at?: string;
   };
   species: {
@@ -69,6 +71,9 @@ export class PredictionRepository {
       confidence_lower_bound_kg: Number(row.confidence_lower_bound_kg),
       confidence_upper_bound_kg: Number(row.confidence_upper_bound_kg),
       is_prototype: Boolean(row.is_prototype),
+      user_id: row.user_id || null,
+      session_id: row.session_id || null,
+      is_demo: row.is_demo !== undefined ? Boolean(row.is_demo) : true,
       created_at: row.created_at
     };
   }
@@ -76,8 +81,8 @@ export class PredictionRepository {
   async createPrediction(pred: PredictionEntity): Promise<PredictionEntity> {
     const db = await getDatabase();
     await db.execute(
-      `INSERT INTO predictions (id, observation_id, species_model_id, estimated_biomass_kg, estimated_carbon_kg, estimated_co2e_kg, confidence_status, confidence_lower_bound_kg, confidence_upper_bound_kg, is_prototype, created_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+      `INSERT INTO predictions (id, observation_id, species_model_id, estimated_biomass_kg, estimated_carbon_kg, estimated_co2e_kg, confidence_status, confidence_lower_bound_kg, confidence_upper_bound_kg, is_prototype, user_id, session_id, is_demo, created_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
       [
         pred.id,
         pred.observation_id,
@@ -89,6 +94,9 @@ export class PredictionRepository {
         pred.confidence_lower_bound_kg,
         pred.confidence_upper_bound_kg,
         pred.is_prototype,
+        pred.user_id || null,
+        pred.session_id || null,
+        pred.is_demo !== undefined ? pred.is_demo : true,
         pred.created_at || new Date().toISOString()
       ]
     );
@@ -167,25 +175,39 @@ export class PredictionRepository {
     return rows.length > 0 ? this.parsePrediction(rows[0]) : null;
   }
 
-  async getEnrichedPrediction(id: string): Promise<EnrichedPredictionRecord | null> {
+  async getEnrichedPrediction(
+    id: string,
+    requestingUser?: { userId?: string; role?: string } | null
+  ): Promise<EnrichedPredictionRecord | null> {
     const db = await getDatabase();
     const predRows = await db.query('SELECT * FROM predictions WHERE id = $1', [id]);
     if (predRows.length === 0) return null;
     const prediction = this.parsePrediction(predRows[0]);
 
+    // Data isolation check: non-admin cannot view another user's private predictions
+    if (requestingUser && requestingUser.role !== 'admin_maintainer') {
+      if (prediction.user_id && prediction.user_id !== requestingUser.userId && !prediction.is_demo) {
+        const error: any = new Error('Access denied: You do not have permission to view this prediction.');
+        error.statusCode = 403;
+        throw error;
+      }
+    }
+
     // Fetch observation
     const obsRows = await db.query('SELECT * FROM tree_observations WHERE id = $1', [prediction.observation_id]);
-    const rawObs = obsRows[0];
+    const rawObs = obsRows[0] || {};
     const observation = {
-      id: rawObs.id,
-      species_id: rawObs.species_id,
-      dbh_cm: Number(rawObs.dbh_cm),
-      height_m: Number(rawObs.height_m),
+      id: rawObs.id || prediction.observation_id,
+      species_id: rawObs.species_id || '',
+      dbh_cm: Number(rawObs.dbh_cm || 0),
+      height_m: Number(rawObs.height_m || 0),
       crown_diameter_m: rawObs.crown_diameter_m != null ? Number(rawObs.crown_diameter_m) : null,
       wood_density_override: rawObs.wood_density_override != null ? Number(rawObs.wood_density_override) : null,
       latitude: rawObs.latitude != null ? Number(rawObs.latitude) : null,
       longitude: rawObs.longitude != null ? Number(rawObs.longitude) : null,
       observation_notes: rawObs.observation_notes || null,
+      user_id: rawObs.user_id || null,
+      session_id: rawObs.session_id || null,
       created_at: rawObs.created_at
     };
 
@@ -243,8 +265,8 @@ export class PredictionRepository {
     }
     const rawSpecies = speciesRows[0] || {
       id: rawObs.species_id,
-      scientific_name: rawObs.species_id,
-      common_name: rawObs.species_id,
+      scientific_name: rawObs.species_id || 'Unknown',
+      common_name: rawObs.species_id || 'Unknown',
       family: 'Unknown',
       wood_density_mean: 0.65,
       wood_density_sd: 0.05
@@ -332,20 +354,36 @@ export class PredictionRepository {
     return rows.slice(0, limit).map(r => this.parsePrediction(r));
   }
 
-  async findEnrichedById(id: string): Promise<EnrichedPredictionRecord | null> {
-    return this.getEnrichedPrediction(id);
+  async findEnrichedById(
+    id: string,
+    requestingUser?: { userId?: string; role?: string } | null
+  ): Promise<EnrichedPredictionRecord | null> {
+    return this.getEnrichedPrediction(id, requestingUser);
   }
 
-  async getHistory(limit: number = 50, offset: number = 0): Promise<EnrichedPredictionRecord[]> {
+  async getHistory(
+    limit: number = 50,
+    offset: number = 0,
+    requestingUser?: { userId?: string; role?: string } | null
+  ): Promise<EnrichedPredictionRecord[]> {
     const db = await getDatabase();
     const predRows = await db.query('SELECT * FROM predictions ORDER BY created_at DESC');
-    const sliced = predRows.slice(offset, offset + limit);
+
+    // Tenant isolation filtering
+    const filteredRows = predRows.filter((row: any) => {
+      if (requestingUser?.role === 'admin_maintainer') return true;
+      if (requestingUser?.userId) {
+        return row.user_id === requestingUser.userId || Boolean(row.is_demo);
+      }
+      return Boolean(row.is_demo) || !row.user_id;
+    });
+
+    const sliced = filteredRows.slice(offset, offset + limit);
     const enrichedList: EnrichedPredictionRecord[] = [];
     for (const row of sliced) {
-      const enriched = await this.getEnrichedPrediction(row.id);
+      const enriched = await this.getEnrichedPrediction(row.id, requestingUser);
       if (enriched) enrichedList.push(enriched);
     }
     return enrichedList;
   }
 }
-

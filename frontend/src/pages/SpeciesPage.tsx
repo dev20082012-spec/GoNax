@@ -252,7 +252,7 @@ export const SpeciesPage: React.FC<Props> = ({ onSelectForMeasurement, onAskAssi
                     onClick={() => onAskAssistant(selectedDetails.species.id)}
                     style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
                   >
-                    <span>💬</span> Ask Scientific Assistant
+                    Ask Scientific Assistant
                   </button>
                 )}
 

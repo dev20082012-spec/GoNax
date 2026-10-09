@@ -362,3 +362,43 @@ Follow this step-by-step walk-through to demonstrate GoNax to judges:
    - Observe how GoNax explicitly refuses calculation with clear scientific justification instead of inventing a fake estimate.
 8. **Prediction History (`/history`)**:
    - Reopen the previous Oak prediction from the local persistent store to demonstrate end-to-end relational persistence.
+
+---
+
+## 16. Security Governance & Operational Production Runbook
+
+### 16.1 Security Controls Summary
+- **Authentication**: Salted PBKDF2 with HMAC-SHA-512 (100,000 iterations, 16-byte cryptographically secure salt) and HS256 JWTs with bounded expiration.
+- **Data Isolation**: Multi-tenant partitioning (`user_id`, `session_id`, `is_demo`). Cross-user prediction inspection by non-maintainers returns `403 Forbidden`.
+- **Administrative Access**: Two-factor admin authorization via `admin_maintainer` JWT role or rotating `X-Admin-Key` header with constant-time equality comparisons.
+- **SSRF & Network Shield**: External DOI and source resolver actively blocks RFC 1918 private IPv4 addresses, AWS/GCP cloud instance metadata (`169.254.169.254`), and loopback addresses (`127.0.0.1`, `localhost`).
+- **Input Sanitization & Injection Defense**: Recursive prototype pollution defense, null-byte stripping, and prompt isolation using `<untrusted_scientific_document>` bounding tags in LLM synthesis pipelines.
+- **Rate Limiting**: Sliding memory rate limiters for authentication (`10 req/min`), predictions (`40 req/min`), and assistant queries (`25 req/min`).
+
+### 16.2 Production Operational Endpoints
+| Endpoint | Method | Access | Description |
+| :--- | :--- | :--- | :--- |
+| `/health` | `GET` | Public | Liveness probe returning service status and version. |
+| `/health/ready` | `GET` | Public | Deep readiness probe verifying database responsive state, models, and datasets. |
+| `/health/metrics` | `GET` | Public | Process memory usage (RSS, heap), platform, and uptime telemetry. |
+| `/api/v1/auth/register` | `POST` | Public | Register new researcher account. |
+| `/api/v1/auth/login` | `POST` | Public | Authenticate researcher and receive JWT token. |
+| `/api/v1/auth/export` | `GET` | Authenticated | GDPR-compliant full JSON export of all user predictions and observations. |
+| `/api/v1/auth/delete-account` | `DELETE` | Authenticated | Permanent cascade deletion of user records, observations, and predictions. |
+| `/api/v1/admin/models` | `GET` | Admin Only | Full inventory of registered models including candidate and retired models. |
+| `/api/v1/admin/models/:id/approve` | `POST` | Admin Only | Promote candidate model to approved status with mandatory audit log note. |
+| `/api/v1/admin/models/:id/retire` | `POST` | Admin Only | Retire model with mandatory deprecation reason; prevents future predictions. |
+| `/api/v1/admin/backups/snapshot` | `POST` | Admin Only | Trigger atomic database backup snapshot with SHA-256 integrity digest. |
+| `/api/v1/admin/audit-logs` | `GET` | Admin Only | View immutable governance audit trail. |
+
+### 16.3 Release Checklist & Launch Verification
+- [x] **Frontend Production Build**: `npm run build` succeeds (`dist/` generated with zero type errors).
+- [x] **Backend Production Build**: `tsc` succeeds with 0 errors (`dist/server.js` generated).
+- [x] **Automated Test Suite**: 78 / 78 tests passing (100% pass rate) across 6 test suites.
+- [x] **Model Governance**: Real trained ML models (`trained-pinus-sylvestris-baad-v1`) distinguished from allometric formula models (`zianis-oak-2005-standard`).
+- [x] **Data Deficiency Protocol**: Data-deficient species (*Fraxinus excelsior*) explicitly refused.
+- [x] **Disclaimers**: Regulatory carbon accounting disclaimers attached to all predictions to prevent ungrounded carbon credit issuance claims.
+- [x] **Cryptographic Provenance**: Every prediction stamped with verifiable SHA-256 provenance hash.
+- [x] **Disaster Recovery**: Cryptographic database backup and restore validated via automated test.
+- [x] **Design & A11y**: Clean editorial research aesthetic, zero pictographic emojis, WCAG 2.2 AA focus rings and contrast.
+

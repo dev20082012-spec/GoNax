@@ -43,7 +43,7 @@ Explain the scientific, biological, and ecological implications strictly using t
       throw new Error(`OpenAI API error (${res.status}): ${errText}`);
     }
 
-    const json = await res.json();
+    const json: any = await res.json();
     const answer = json.choices?.[0]?.message?.content || 'No explanation generated.';
 
     return {

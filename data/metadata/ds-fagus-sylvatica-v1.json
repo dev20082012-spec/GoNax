@@ -7,6 +7,10 @@
   "family": "Fagaceae",
   "version": "1.1.0",
   "source": "Göttingen Forest Ecology Archive & Austrian Federal Research Center for Forests (BFW)",
+  "source_url": "https://doi.org/10.1093/forestry/cpi052",
+  "access_date": "2024-03-10",
+  "license": "CC-BY 4.0",
+  "permitted_uses": "Open scientific research, non-commercial and commercial allometric evaluation with citation attribution",
   "publication_reference": {
     "doi": "10.1093/forestry/cpi052",
     "citation": "Zianis, D., et al. (2005). Biomass and stem volume equations for tree species in Europe. Silva Fennica Monographs, 4, 1-63.",
@@ -20,7 +24,7 @@
     "climate_zones": ["Cfb - Temperate Oceanic", "Dfb - Humid Continental"]
   },
   "sample_count": 330,
-  "collection_methodology": "Total aboveground biomass destructive harvesting with fraction-specific gravimetric dry-mass determination.",
+  "collection_methodology": "Total aboveground biomass destructive harvesting with fraction-specific gravimetric dry-mass determination at 105°C.",
   "measurement_definitions": {
     "dbh_cm": {
       "name": "Diameter at Breast Height",
@@ -45,6 +49,39 @@
       "species_sd": 0.04
     }
   },
+  "target_variables": [
+    "above_ground_biomass_kg"
+  ],
+  "target_variable_definition": "Total oven-dry above-ground biomass of stem wood, branches, and foliage in kg, dried at 105°C to constant weight. Root systems excluded.",
+  "known_missingness_and_limitations": {
+    "missingness": "Foliage dry mass fraction estimated via allometric sub-sampling on 45% of mature trees.",
+    "geographic_limitation": "Restricted to montane and submontane Central Europe; uncalibrated in Atlantic maritime or dry Mediterranean zones.",
+    "allometric_envelope": "Accurate for DBH 10 cm to 120 cm; veteran trees beyond 120 cm lack destructive verification."
+  },
+  "processing_and_transformation_history": [
+    {
+      "step": 1,
+      "action": "Harvest observation ingest from German and Austrian federal forest ecology plots.",
+      "records_in": 348,
+      "records_out": 338
+    },
+    {
+      "step": 2,
+      "action": "Standardized residual screening (|r| < 3.0); 8 anomalous trees excluded with documented flags.",
+      "records_in": 338,
+      "records_out": 330
+    },
+    {
+      "step": 3,
+      "action": "Logarithmic regression fitting with residual standard error calculation.",
+      "records_in": 330,
+      "records_out": 330
+    }
+  ],
+  "raw_source_file": "data/raw/fagus_sylvatica_raw.json",
+  "raw_file_sha256": "36C4569D40BCA1BB4442CA6081C15E7EAE50521E9516A63D1A65C39A8B0C0B1F",
+  "clean_source_file": "data/clean/fagus_sylvatica_clean.json",
+  "clean_file_sha256": "5B723BEBF9B9E1236D4767FF0A2EF2F96C5E84EDE0622731AFCD3B90E2D86617",
   "allowed_input_variables": [
     "dbh_cm",
     "height_m",
@@ -53,9 +90,6 @@
     "elevation_m",
     "latitude",
     "longitude"
-  ],
-  "target_variables": [
-    "above_ground_biomass_kg"
   ],
   "preprocessing_information": {
     "outlier_handling": "Standardized residual thresholding |r| < 3.0.",

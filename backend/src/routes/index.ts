@@ -6,6 +6,9 @@ import referenceRoutes from './referenceRoutes';
 import modelRoutes from './modelRoutes';
 import datasetRoutes from './datasetRoutes';
 import knowledgeRoutes from './knowledgeRoutes';
+import authRoutes from './authRoutes';
+import adminRoutes from './adminRoutes';
+import healthRoutes from './healthRoutes';
 
 const apiRouter = Router();
 
@@ -17,14 +20,8 @@ apiRouter.use('/references', referenceRoutes);
 apiRouter.use('/models', modelRoutes);
 apiRouter.use('/datasets', datasetRoutes);
 apiRouter.use('/knowledge', knowledgeRoutes);
-
-apiRouter.get('/health', (req, res) => {
-  res.json({
-    status: 'healthy',
-    system: 'GoNax Species-Specific Carbon Intelligence API',
-    version: '1.2.0',
-    timestamp: new Date().toISOString()
-  });
-});
+apiRouter.use('/auth', authRoutes);
+apiRouter.use('/admin', adminRoutes);
+apiRouter.use('/health', healthRoutes);
 
 export default apiRouter;

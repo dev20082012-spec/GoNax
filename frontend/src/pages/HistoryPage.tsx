@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../api/client';
 import { EnrichedPrediction } from '../types';
 import { ScientificBadge } from '../components/ScientificBadge';
+import { formatLocaleNumber, formatLocaleDateTime } from '../utils/i18n';
 
 interface Props {
   onViewPrediction: (id: string) => void;
@@ -16,17 +17,19 @@ export const HistoryPage: React.FC<Props> = ({
 }) => {
   const [history, setHistory] = useState<EnrichedPrediction[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [filterSpecies, setFilterSpecies] = useState('ALL');
   const [search, setSearch] = useState('');
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [exportNotice, setExportNotice] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
       try {
         const data = await api.getPredictionHistory(100);
         setHistory(data);
-      } catch (err) {
-        console.error('Failed to load history:', err);
+      } catch (err: any) {
+        setError(err.message || 'Failed to retrieve calculation history.');
       } finally {
         setLoading(false);
       }
@@ -60,17 +63,45 @@ export const HistoryPage: React.FC<Props> = ({
   };
 
   const handleExportJSON = () => {
-    const blob = new Blob([JSON.stringify(history, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `gonax-prediction-history-${new Date().toISOString().slice(0, 10)}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    if (history.length === 0) {
+      setExportNotice('No records available to export.');
+      setTimeout(() => setExportNotice(null), 3000);
+      return;
+    }
+
+    try {
+      const recordsToExport = selectedIds.length > 0
+        ? history.filter(h => selectedIds.includes(h.prediction.id))
+        : history;
+
+      const blob = new Blob([JSON.stringify(recordsToExport, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `gonax-prediction-history-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      setExportNotice(`Successfully exported ${recordsToExport.length} record(s) as JSON.`);
+      setTimeout(() => setExportNotice(null), 4000);
+    } catch (err: any) {
+      // Clipboard fallback
+      try {
+        const fallbackStr = JSON.stringify(history, null, 2);
+        navigator.clipboard?.writeText(fallbackStr);
+        setExportNotice('File download was blocked; audit records were copied to clipboard instead.');
+      } catch (clipErr) {
+        setExportNotice('Export failed: unable to access file system or clipboard.');
+      }
+      setTimeout(() => setExportNotice(null), 5000);
+    }
   };
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-secondary)' }}>Loading observation audit history...</div>;
+    return (
+      <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-secondary)' }} role="status">
+        Loading observation audit history from local relational store...
+      </div>
+    );
   }
 
   return (
@@ -78,20 +109,21 @@ export const HistoryPage: React.FC<Props> = ({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <span className="badge badge-neutral">PERSISTENT OBSERVATION AUDIT TRAIL</span>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '0.4rem', letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '0.4rem', letterSpacing: '-0.02em', margin: 0 }}>
             Observation & Prediction History
           </h1>
-          <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-            Immutable audit record of field observations, deterministic allometric predictions, and model provenance.
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+            Immutable audit record of field observations, deterministic allometric predictions, and mathematical provenance.
           </p>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
           <button
             className="btn-secondary btn-sm"
             onClick={handleExportJSON}
+            disabled={history.length === 0}
             title="Download full JSON audit export"
           >
-            Export JSON
+            Export JSON ({selectedIds.length > 0 ? selectedIds.length : history.length})
           </button>
           <button className="btn-primary btn-sm" onClick={onNewMeasurement}>
             + New Measurement
@@ -99,74 +131,126 @@ export const HistoryPage: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Filter and Selection Bar */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <input
-            type="text"
-            placeholder="Filter by species or notes..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="form-input"
-            style={{ maxWidth: '300px' }}
-          />
-          <select
-            value={filterSpecies}
-            onChange={e => setFilterSpecies(e.target.value)}
-            className="form-select"
-            style={{ maxWidth: '220px' }}
-          >
-            {speciesOptions.map(sp => (
-              <option key={sp} value={sp}>
-                Species: {sp}
-              </option>
-            ))}
-          </select>
+      {exportNotice && (
+        <div
+          role="status"
+          style={{
+            backgroundColor: 'var(--accent-primary-bg)',
+            border: '1px solid var(--accent-primary)',
+            color: 'var(--accent-primary)',
+            padding: '0.65rem 1rem',
+            borderRadius: 'var(--radius)',
+            fontSize: '0.85rem',
+            marginBottom: '1rem'
+          }}
+        >
+          ✓ {exportNotice}
         </div>
+      )}
 
-        {selectedIds.length > 0 && onComparePredictions && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: 600 }}>
-              {selectedIds.length} observation(s) selected
-            </span>
-            <button
-              className="btn-primary btn-sm"
-              onClick={() => onComparePredictions(selectedIds)}
+      {error && (
+        <div
+          role="alert"
+          style={{
+            backgroundColor: 'var(--status-error-bg)',
+            border: '1px solid var(--status-error)',
+            color: 'var(--status-error)',
+            padding: '1rem',
+            borderRadius: 'var(--radius)',
+            fontSize: '0.875rem',
+            marginBottom: '1.5rem'
+          }}
+        >
+          <strong>Error:</strong> {error}
+        </div>
+      )}
+
+      {/* Filter and Selection Bar */}
+      {history.length > 0 && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <input
+              type="text"
+              placeholder="Filter by species or notes..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className="form-input"
+              style={{ maxWidth: '300px' }}
+              aria-label="Filter history records by species or plot notes"
+            />
+            <select
+              value={filterSpecies}
+              onChange={e => setFilterSpecies(e.target.value)}
+              className="form-select"
+              style={{ maxWidth: '220px' }}
+              aria-label="Filter by species"
             >
-              Compare Selected ({selectedIds.length}) →
-            </button>
+              {speciesOptions.map(sp => (
+                <option key={sp} value={sp}>
+                  Species: {sp}
+                </option>
+              ))}
+            </select>
           </div>
-        )}
-      </div>
 
-      {/* History Table */}
+          {selectedIds.length > 0 && onComparePredictions && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <span style={{ fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: 600 }}>
+                {selectedIds.length} observation(s) selected
+              </span>
+              <button
+                className="btn-primary btn-sm"
+                onClick={() => onComparePredictions(selectedIds)}
+              >
+                Compare Selected ({selectedIds.length}) →
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* History Table or Rich Empty State */}
       <div className="card">
-        {filteredHistory.length === 0 ? (
+        {history.length === 0 ? (
+          <div style={{ padding: '3.5rem 1.5rem', textAlign: 'center', maxWidth: '580px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+              No Field Observations Recorded Yet
+            </h2>
+            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1.75rem' }}>
+              Your calculation history is currently empty. Whenever you record tree dimensions in the Field Measurement workspace, GoNax logs an immutable audit entry with complete mathematical provenance, 95% log-normal confidence intervals, and reference citations.
+            </p>
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button className="btn-primary" onClick={onNewMeasurement}>
+                + Record Your First Tree
+              </button>
+            </div>
+          </div>
+        ) : filteredHistory.length === 0 ? (
           <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
-            No calculations match your search criteria.
+            No calculations match &ldquo;{search}&rdquo;. Try clearing filters.
           </div>
         ) : (
           <div className="table-wrap">
-            <table className="data-table">
+            <table className="data-table" aria-label="Field observation calculation history">
               <thead>
                 <tr>
-                  <th style={{ width: '40px' }}>
+                  <th scope="col" style={{ width: '40px' }}>
                     <input
                       type="checkbox"
                       checked={selectedIds.length === filteredHistory.length && filteredHistory.length > 0}
                       onChange={selectAllFiltered}
-                      title="Select all"
+                      aria-label="Select all displayed calculations"
                     />
                   </th>
-                  <th>Timestamp</th>
-                  <th>Species (Taxon)</th>
-                  <th>Dimensions (DBH / H)</th>
-                  <th>Dry Biomass</th>
-                  <th>Carbon Stock</th>
-                  <th>CO₂ Equivalent</th>
-                  <th>Confidence Status</th>
-                  <th>Model Used</th>
-                  <th>Action</th>
+                  <th scope="col">Timestamp</th>
+                  <th scope="col">Species (Taxon)</th>
+                  <th scope="col">Dimensions (DBH / H)</th>
+                  <th scope="col">Dry Biomass</th>
+                  <th scope="col">Carbon Stock</th>
+                  <th scope="col">CO₂ Equivalent</th>
+                  <th scope="col">Confidence Status</th>
+                  <th scope="col">Model Used</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -182,17 +266,20 @@ export const HistoryPage: React.FC<Props> = ({
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => toggleSelect(item.prediction.id)}
+                          aria-label={`Select calculation for ${item.species.scientific_name}`}
                         />
                       </td>
                       <td style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
-                        {new Date(item.prediction.created_at).toLocaleDateString()}{' '}
-                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                          {new Date(item.prediction.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </span>
+                        {formatLocaleDateTime(item.prediction.created_at)}
                       </td>
                       <td>
                         <div>
                           <strong style={{ color: 'var(--text-primary)' }}>{item.species.scientific_name}</strong>
+                          {item.prediction.is_demo_run && (
+                            <span className="badge badge-warning" style={{ fontSize: '0.62rem', marginLeft: '0.35rem' }}>
+                              DEMO
+                            </span>
+                          )}
                         </div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                           {item.species.common_name}
@@ -202,13 +289,13 @@ export const HistoryPage: React.FC<Props> = ({
                         {item.observation.dbh_cm} cm / {item.observation.height_m} m
                       </td>
                       <td style={{ fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-                        {item.prediction.estimated_biomass_kg.toLocaleString()} kg
+                        {formatLocaleNumber(item.prediction.estimated_biomass_kg, 1)} kg
                       </td>
                       <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-primary)', fontWeight: 600 }}>
-                        {item.prediction.estimated_carbon_kg.toLocaleString()} kg C
+                        {formatLocaleNumber(item.prediction.estimated_carbon_kg, 1)} kg C
                       </td>
                       <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-primary)', fontWeight: 700 }}>
-                        {item.prediction.estimated_co2e_kg.toLocaleString()} kg CO₂e
+                        {formatLocaleNumber(item.prediction.estimated_co2e_kg, 1)} kg CO₂e
                       </td>
                       <td>
                         <ScientificBadge
@@ -224,6 +311,7 @@ export const HistoryPage: React.FC<Props> = ({
                           className="btn-primary btn-sm"
                           onClick={() => onViewPrediction(item.prediction.id)}
                           title="Reopen full scientific result and reasoning chat"
+                          aria-label={`Inspect results for ${item.species.scientific_name}`}
                         >
                           Inspect →
                         </button>

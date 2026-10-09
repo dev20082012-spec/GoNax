@@ -44,10 +44,18 @@ export class ModelRegistry {
   }
 
   public resolveModel(speciesId: string, preferredModelId?: string): ScientificModel {
-    if (preferredModelId && this.models.has(preferredModelId)) {
-      const preferred = this.models.get(preferredModelId)!;
-      if (preferred.getMetadata().species_id === speciesId) {
-        return preferred;
+    if (preferredModelId) {
+      if (!/^[a-zA-Z0-9_\-]+$/.test(preferredModelId)) {
+        throw new Error(`Invalid model ID format '${preferredModelId}': Path traversal and non-alphanumeric characters are prohibited.`);
+      }
+      if (this.models.has(preferredModelId)) {
+        const preferred = this.models.get(preferredModelId)!;
+        if (preferred.getMetadata().species_id === speciesId) {
+          if (preferred.getMetadata().status === 'deprecated' || preferred.getMetadata().governance_status === 'retired') {
+            throw new Error(`Model '${preferredModelId}' has been retired from production inference.`);
+          }
+          return preferred;
+        }
       }
     }
 
@@ -56,13 +64,83 @@ export class ModelRegistry {
       throw new Error(`No registered scientific models found for species '${speciesId}'.`);
     }
 
-    // Prioritize genuine trained ML models over prototype/legacy formula models
-    const realTrained = available.find(m => m.getMetadata().model_id.startsWith('trained-') && m.getMetadata().status === 'active');
-    if (realTrained) return realTrained;
+    // 1. Prioritize approved scientific models
+    const approved = available.find(m =>
+      (m.getMetadata().governance_status === 'approved_scientific_model' || m.getMetadata().status === 'active') &&
+      m.getMetadata().status !== 'candidate' &&
+      m.getMetadata().status !== 'deprecated' &&
+      m.getMetadata().governance_status !== 'retired'
+    );
+    if (approved) return approved;
 
-    // Default to the first active model or first available
-    const active = available.find(m => m.getMetadata().status === 'active');
-    return active || available[0];
+    // 2. Fall back to active model
+    const active = available.find(m =>
+      m.getMetadata().status === 'active' &&
+      m.getMetadata().governance_status !== 'retired'
+    );
+    if (active) return active;
+
+    // 3. Fallback to first available non-retired model
+    const nonRetired = available.find(m => m.getMetadata().governance_status !== 'retired');
+    return nonRetired || available[0];
+  }
+
+  public approveModel(modelId: string, reviewer: string, notes: string): ModelMetadata {
+    if (!/^[a-zA-Z0-9_\-]+$/.test(modelId)) {
+      throw new Error('Invalid model ID format.');
+    }
+    const model = this.models.get(modelId);
+    if (!model) throw new Error(`Model '${modelId}' not found in registry.`);
+    const meta = model.getMetadata();
+    meta.status = 'active';
+    meta.governance_status = 'approved_scientific_model';
+    meta.governance_review = {
+      reviewed_by: reviewer,
+      review_date: new Date().toISOString(),
+      status: 'approved_scientific_model',
+      review_notes: notes
+    };
+    return meta;
+  }
+
+  public retireModel(modelId: string, reason: string): ModelMetadata {
+    if (!/^[a-zA-Z0-9_\-]+$/.test(modelId)) {
+      throw new Error('Invalid model ID format.');
+    }
+    const model = this.models.get(modelId);
+    if (!model) throw new Error(`Model '${modelId}' not found in registry.`);
+    const meta = model.getMetadata();
+    meta.status = 'deprecated';
+    meta.governance_status = 'retired';
+    meta.governance_review = {
+      reviewed_by: 'System Administrator',
+      review_date: new Date().toISOString(),
+      status: 'retired',
+      review_notes: `Retirement reason: ${reason}`
+    };
+    return meta;
+  }
+
+  public compareModels(modelIdA: string, modelIdB: string): any {
+    const modelA = this.models.get(modelIdA);
+    const modelB = this.models.get(modelIdB);
+    if (!modelA || !modelB) {
+      throw new Error('Both models must exist in registry for comparison.');
+    }
+    const metaA = modelA.getMetadata();
+    const metaB = modelB.getMetadata();
+    return {
+      model_a: metaA,
+      model_b: metaB,
+      metrics_comparison: {
+        r2_diff: Number((metaA.evaluation_metrics.r2 - metaB.evaluation_metrics.r2).toFixed(4)),
+        rmse_diff_kg: Number((metaA.evaluation_metrics.rmse_kg - metaB.evaluation_metrics.rmse_kg).toFixed(2)),
+        rse_diff_pct: Number((metaA.evaluation_metrics.rse_percentage - metaB.evaluation_metrics.rse_percentage).toFixed(2))
+      },
+      recommended_model: metaA.evaluation_metrics.r2 >= metaB.evaluation_metrics.r2 && metaA.evaluation_metrics.rse_percentage <= metaB.evaluation_metrics.rse_percentage
+        ? metaA.model_id
+        : metaB.model_id
+    };
   }
 
   public getAllModelsMetadata(): ModelMetadata[] {

@@ -26,10 +26,10 @@ export class SpeciesService {
 
     // Collect references from datasets
     const refIds = datasets.map(d => d.reference_id).filter(Boolean);
-    const references = [];
+    const references: any[] = [];
     for (const refId of refIds) {
       const ref = await this.refRepo.findById(refId);
-      if (ref && !references.some(r => r.id === ref.id)) {
+      if (ref && !references.some((r: any) => r.id === ref.id)) {
         references.push(ref);
       }
     }

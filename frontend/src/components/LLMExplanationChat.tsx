@@ -228,7 +228,7 @@ export const LLMExplanationChat: React.FC<Props> = ({
                                 style={{ fontSize: '0.65rem', padding: '0.15rem 0.4rem' }}
                                 onClick={() => setInspectedSourceId(c.sourceId)}
                               >
-                                Inspect 🔍
+                                [Inspect Evidence]
                               </button>
                             </div>
                           </div>

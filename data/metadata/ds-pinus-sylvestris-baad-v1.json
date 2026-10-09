@@ -7,6 +7,10 @@
   "family": "Pinaceae",
   "version": "1.0.1",
   "source": "Biomass And Allometry Database for woody plants (BAAD)",
+  "source_url": "https://github.com/dfalster/baad",
+  "access_date": "2026-10-01",
+  "license": "CC-BY 4.0",
+  "permitted_uses": "Open scientific research, non-commercial and commercial allometric evaluation with citation attribution",
   "publication_reference": {
     "doi": "10.1890/14-1889.1",
     "citation": "Falster, D.S., et al. (2015). BAAD: a Biomass And Allometry Database for woody plants. Ecology, 96(5): 1445.",
@@ -43,6 +47,11 @@
     "longitude_bounds": [
       -4.5,
       24.2
+    ],
+    "climate_zones": [
+      "Dfc - Subarctic boreal",
+      "Dfb - Warm-summer humid continental",
+      "Csb - Mediterranean warm/cool summer"
     ]
   },
   "sample_count": 288,
@@ -52,6 +61,7 @@
       "name": "Diameter at Breast Height",
       "definition": "Stem diameter measured at 1.30 m height above ground level.",
       "unit": "cm",
+      "precision": 0.1,
       "calibration_range": [
         1.1,
         41.95
@@ -61,6 +71,7 @@
       "name": "Total Tree Height",
       "definition": "Vertical distance from base of trunk to apical terminal shoot.",
       "unit": "m",
+      "precision": 0.1,
       "calibration_range": [
         2.1,
         32.4
@@ -68,8 +79,9 @@
     },
     "above_ground_biomass_kg": {
       "name": "Above-Ground Dry Biomass",
-      "definition": "Total oven-dry mass of stem, branches, and foliage (excluding root system).",
+      "definition": "Total oven-dry mass of stem wood, bark, branches, and foliage (excluding root system).",
       "unit": "kg",
+      "precision": 0.01,
       "calibration_range": [
         0.291,
         1106.58
@@ -79,5 +91,49 @@
   "target_variables": [
     "above_ground_biomass_kg"
   ],
+  "target_variable_definition": "Oven-dry vegetative mass of living above-ground components (stem, bark, branches, foliage) measured in kilograms after drying at 105 deg C to constant weight. Below-ground root systems are strictly excluded.",
+  "known_missingness_and_limitations": {
+    "missingness": "Crown diameter missing in 68% of cohort records; basic wood density measured at study cohort level rather than per individual tree.",
+    "geographic_limitation": "Calibrated primarily on Fennoscandian boreal ecosystems; Mediterranean sample size is limited (N=7).",
+    "allometric_envelope": "Sample contains young to mature commercial stems up to 41.95 cm DBH. Uncalibrated for ancient veteran trees (> 50 cm DBH)."
+  },
+  "processing_and_transformation_history": [
+    {
+      "step": 1,
+      "action": "Raw data extraction from BAAD v1.0.1 export bundle (baad_data.zip).",
+      "records_in": 312,
+      "records_out": 305
+    },
+    {
+      "step": 2,
+      "action": "Filter for Scots pine (species matched 'Pinus sylvestris') with valid DBH and dry mass.",
+      "records_in": 305,
+      "records_out": 288
+    },
+    {
+      "step": 3,
+      "action": "Cross-verification of oven-dry definitions across Albrektson (1984), Vanninen (2005), and Santa Regina (1999). Flagged zero duplicate tree observations.",
+      "records_in": 288,
+      "records_out": 288
+    }
+  ],
+  "raw_source_file": "data/raw/pinus_sylvestris_raw.json",
+  "raw_file_sha256": "1C9EAEEA7A7B4F811B3C666DAE5D8252EE14F1D6407A33203B14838B70F92941",
+  "clean_source_file": "data/clean/pinus_sylvestris_baad_clean.json",
+  "clean_file_sha256": "7F4DEE7D6177FF430B287A391B2425F83FAAC2B997C90CE1DD2C6204506017F7",
+  "allowed_input_variables": [
+    "dbh_cm",
+    "height_m",
+    "cylindrical_volume_proxy_m3",
+    "latitude",
+    "longitude"
+  ],
+  "preprocessing_information": {
+    "outlier_handling": "Extreme Cook's distance filtering; biological plausibility envelope bounds checked.",
+    "missing_values": "Samples missing DBH or total dry mass excluded from training split.",
+    "transformations": "Logarithmic conversion and cylindrical volume proxy computation.",
+    "validation_split": "70% Train (N=200), 15% Validation (N=44), 15% Test (N=44) grouped by study cohort."
+  },
+  "release_date": "2024-05-15",
   "status": "verified_scientific_dataset"
 }

@@ -11,6 +11,9 @@ export interface PredictionEntity {
   confidence_lower_bound_kg: number;
   confidence_upper_bound_kg: number;
   is_prototype: boolean;
+  user_id?: string | null;
+  session_id?: string | null;
+  is_demo?: boolean;
   created_at?: string;
 }
 
