@@ -51,16 +51,45 @@ app.use('/api/v1', apiRouter);
 import healthRoutes from './routes/healthRoutes';
 app.use('/health', healthRoutes);
 
-// Root informational endpoint
-app.get('/', (req, res) => {
-  res.json({
-    project: 'GoNax — Species-Specific Carbon Intelligence',
-    version: '1.2.0-hardened',
-    status: 'online',
-    health: '/api/v1/health',
-    ready: '/api/v1/health/ready'
+// Frontend static asset serving (serves the web app on port 5000 as well)
+import path from 'path';
+import fs from 'fs';
+
+const candidateDistPaths = [
+  path.resolve(__dirname, '../../frontend/dist'),
+  path.resolve(__dirname, '../frontend/dist'),
+  path.resolve(process.cwd(), '../frontend/dist'),
+  path.resolve(process.cwd(), 'frontend/dist')
+];
+
+let staticDir: string | null = null;
+for (const p of candidateDistPaths) {
+  if (fs.existsSync(p) && fs.existsSync(path.join(p, 'index.html'))) {
+    staticDir = p;
+    break;
+  }
+}
+
+if (staticDir) {
+  app.use(express.static(staticDir));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/health')) {
+      return next();
+    }
+    res.sendFile(path.join(staticDir!, 'index.html'));
   });
-});
+} else {
+  // Root informational endpoint fallback
+  app.get('/', (req, res) => {
+    res.json({
+      project: 'GoNax — Species-Specific Carbon Intelligence',
+      version: '1.2.0-hardened',
+      status: 'online',
+      health: '/api/v1/health',
+      ready: '/api/v1/health/ready'
+    });
+  });
+}
 
 // Centralized error handler (prevents credential/stack leaks)
 app.use(errorHandler);

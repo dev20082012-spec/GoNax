@@ -20,12 +20,45 @@ import { ScientificGlossaryModal } from './components/ScientificGlossaryModal';
 import { FirstUseWalkthrough } from './components/FirstUseWalkthrough';
 import { EnrichedPrediction } from './types';
 
+function parseInitialPage(): PageView {
+  const path = window.location.pathname.replace(/^\/+/, '').split('/')[0].toLowerCase();
+  const validPages: PageView[] = [
+    'landing', 'dashboard', 'species', 'measure', 'result',
+    'comparison', 'history', 'models', 'datasets', 'evidence',
+    'assistant', 'about', 'research', 'privacy', 'terms'
+  ];
+  if (validPages.includes(path as PageView)) {
+    return path as PageView;
+  }
+  const hash = window.location.hash.replace(/^#\/?/, '').split('/')[0].toLowerCase();
+  if (validPages.includes(hash as PageView)) {
+    return hash as PageView;
+  }
+  return 'landing';
+}
+
 export const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<PageView>('landing');
+  const [currentPage, setCurrentPageRaw] = useState<PageView>(parseInitialPage);
   const [selectedSpeciesIdForMeasurement, setSelectedSpeciesIdForMeasurement] = useState<string | null>(null);
   const [activePredictionId, setActivePredictionId] = useState<string | null>(null);
   const [activePredictionData, setActivePredictionData] = useState<EnrichedPrediction | null>(null);
   const [comparisonIds, setComparisonIds] = useState<string[]>([]);
+
+  const setCurrentPage = (page: PageView) => {
+    setCurrentPageRaw(page);
+    const targetUrl = page === 'landing' ? '/' : `/${page}`;
+    if (window.location.pathname !== targetUrl) {
+      window.history.pushState({ page }, '', targetUrl);
+    }
+  };
+
+  React.useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPageRaw(parseInitialPage());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Global modals state
   const [isGlossaryOpen, setIsGlossaryOpen] = useState<boolean>(false);
